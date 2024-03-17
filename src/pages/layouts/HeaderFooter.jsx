@@ -8,9 +8,11 @@ const HeaderFooter = ({ children }) => {
       <Header />
       <Flex w="100%" h="100%" direction="row">
         <Flex w="50px" h="100%" bgColor="blue"></Flex>
-        {children}
+        <Flex w="100%" h="100%" direction="column">
+          {children}
+          <Footer />
+        </Flex>
       </Flex>
-      <Footer />
     </Flex>
   );
 };
