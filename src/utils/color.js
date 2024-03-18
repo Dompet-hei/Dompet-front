@@ -1,3 +1,11 @@
+export const applyOpacity = (color, opacity) => {
+  return `${color}${opacity.toString(16)}`;
+};
+
+const createApplyOpacityFunction = (color) => {
+  return (o) => applyOpacity(color, o);
+};
+
 export const theme = {
   light: "#B8EBD0",
   dark: "#292F36",
@@ -10,12 +18,4 @@ export const opacityTheme = {
   dark: createApplyOpacityFunction(theme.dark),
   alert: createApplyOpacityFunction(theme.alert),
   base: createApplyOpacityFunction(theme.base),
-};
-
-export const applyOpacity = (color, opacity) => {
-  return `${color}${opacity.toString(16)}`;
-};
-
-const createApplyOpacityFunction = (color) => {
-  return (o) => applyOpacity(color, o);
 };
