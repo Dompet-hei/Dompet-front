@@ -8,9 +8,10 @@ import useInput from "./hooks/useInput";
 export const UserContext = createContext();
 
 const DEFAULT_USER = "";
+const DEFAULT_USER_NAME = "lorem";
 
 const UserProvider = ({ children, needRedirect }) => {
-  const [name, setName] = useLocalStorage("name", "lorem");
+  const [name, setName] = useLocalStorage("name", DEFAULT_USER_NAME);
   const [id, setId] = useLocalStorage("id", DEFAULT_USER);
 
   const [nameInput, onChangeName] = useInput(name);
@@ -31,6 +32,11 @@ const UserProvider = ({ children, needRedirect }) => {
     setId(idInput);
   };
 
+  const logoutAccount = () => {
+    setName(DEFAULT_USER_NAME);
+    setId(DEFAULT_USER);
+  };
+
   useEffect(() => {
     if (!validatePage() && !isInPath("/chose")) {
       redirect("/chose");
@@ -49,6 +55,7 @@ const UserProvider = ({ children, needRedirect }) => {
         idInput,
         onChangeId,
         loginAccount,
+        logoutAccount,
       }}
     >
       {validatePage() ? children : <></>}
