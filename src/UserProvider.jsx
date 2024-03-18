@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { createContext } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { MainContext } from "./MainProvider";
+import useInput from "./hooks/useInput";
 
 export const UserContext = createContext();
 
@@ -12,6 +13,9 @@ const UserProvider = ({ children, needRedirect }) => {
   const [name, setName] = useLocalStorage("name", "lorem");
   const [id, setId] = useLocalStorage("id", DEFAULT_USER);
 
+  const [nameInput, onChangeName] = useInput(name);
+  const [idInput, onChangeId] = useInput(id);
+
   const { redirect, isInPath } = useContext(MainContext);
 
   const isEmptyUser = () => {
@@ -20,6 +24,11 @@ const UserProvider = ({ children, needRedirect }) => {
 
   const validatePage = () => {
     return !isEmptyUser() || !needRedirect;
+  };
+
+  const loginAccount = () => {
+    setName(nameInput);
+    setId(idInput);
   };
 
   useEffect(() => {
@@ -35,6 +44,11 @@ const UserProvider = ({ children, needRedirect }) => {
         id,
         setName,
         setId,
+        nameInput,
+        onChangeName,
+        idInput,
+        onChangeId,
+        loginAccount,
       }}
     >
       {validatePage() ? children : <></>}
