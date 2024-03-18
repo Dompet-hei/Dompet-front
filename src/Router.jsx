@@ -12,7 +12,10 @@ const Router = () => {
       <Routes>
         <Route
           element={
-            <UserContext children={<HeaderFooter children={<Home />} />} />
+            <UserContext
+              needRedirect={true}
+              children={<HeaderFooter children={<Home />} />}
+            />
           }
           path="/"
         />

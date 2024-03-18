@@ -8,21 +8,25 @@ export const UserContext = createContext();
 
 const DEFAULT_USER = "";
 
-const UserProvider = ({ children }) => {
+const UserProvider = ({ children, needRedirect }) => {
   const [name, setName] = useLocalStorage("name", "lorem");
   const [id, setId] = useLocalStorage("id", DEFAULT_USER);
 
   const { redirect, isInPath } = useContext(MainContext);
 
   const isEmptyUser = () => {
-    return id === DEFAULT_USER;
+    return id == DEFAULT_USER;
+  };
+
+  const validatePage = () => {
+    return !isEmptyUser() || !needRedirect;
   };
 
   useEffect(() => {
-    if (isEmptyUser && !isInPath("/chose")) {
+    if (!validatePage() && !isInPath("/chose")) {
       redirect("/chose");
     }
-  });
+  }, []);
 
   return (
     <UserContext.Provider
@@ -33,7 +37,7 @@ const UserProvider = ({ children }) => {
         setId,
       }}
     >
-      {children}
+      {validatePage() ? children : <></>}
     </UserContext.Provider>
   );
 };
