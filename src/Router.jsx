@@ -4,17 +4,25 @@ import Home from "./pages/Home";
 import HeaderFooter from "./pages/layouts/HeaderFooter";
 import Error from "./pages/Error";
 import UserContext from "./UserProvider";
+import ChoseUser from "./pages/ChoseUser";
 
 const Router = () => {
   return (
-    <UserContext>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<HeaderFooter children={<Home />} />} path="/" />
-          <Route element={<Error />} path="*" />
-        </Routes>
-      </BrowserRouter>
-    </UserContext>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          element={
+            <UserContext children={<HeaderFooter children={<Home />} />} />
+          }
+          path="/"
+        />
+        <Route
+          element={<UserContext children={<ChoseUser />} />}
+          path="/chose"
+        />
+        <Route element={<Error />} path="*" />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
