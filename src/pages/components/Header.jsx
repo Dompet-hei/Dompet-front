@@ -1,9 +1,18 @@
-import { Flex, Button } from "@chakra-ui/react";
-import { theme, opacityTheme } from "../../utils/color";
+import {
+  Flex,
+  Button,
+  Menu,
+  MenuList,
+  MenuItem,
+  MenuButton,
+  MenuDivider,
+} from "@chakra-ui/react";
+import { opacityTheme } from "../../utils/color";
 import { useContext } from "react";
 import { UserContext } from "../../UserProvider";
 import { useEffect } from "react";
 import { MainContext } from "../../MainProvider";
+import { FaAngleDown } from "react-icons/fa6";
 
 const Header = ({ h }) => {
   const { logoutAccount, id } = useContext(UserContext);
@@ -30,7 +39,19 @@ const Header = ({ h }) => {
         <a href="/">Dompet</a>
       </Flex>
       <Flex>
-        <Button onClick={handleLogOut}>LogOut</Button>
+        <Menu>
+          <MenuButton
+            as={Button}
+            rightIcon={<FaAngleDown />}
+            colorScheme="blue"
+          >
+            Setting
+          </MenuButton>
+          <MenuList>
+            <MenuDivider />
+            <MenuItem onClick={handleLogOut}>LogOut</MenuItem>
+          </MenuList>
+        </Menu>
       </Flex>
     </Flex>
   );
