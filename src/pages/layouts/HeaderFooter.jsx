@@ -2,6 +2,7 @@ import { Flex } from "@chakra-ui/react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { theme } from "../../utils/color";
+import SideBar from "../components/SideBar";
 
 const HNavBar = "5em";
 
@@ -16,7 +17,7 @@ const HeaderFooter = ({ children }) => {
     >
       <Header h={HNavBar} />
       <Flex w="100%" h={`calc(100vh - ${HNavBar})`} direction="row">
-        <Flex w={["0", "10em", "10em"]} h="100%" bgColor={theme.base}></Flex>
+        <SideBar h={`calc(100vh - ${HNavBar})`} />
         <Flex
           w="100%"
           h="100%"
