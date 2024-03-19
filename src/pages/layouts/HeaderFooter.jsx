@@ -16,13 +16,14 @@ const HeaderFooter = ({ children }) => {
     >
       <Header h={HNavBar} />
       <Flex w="100%" h={`calc(100vh - ${HNavBar})`} direction="row">
-        <Flex w="50px" h="100%" bgColor={theme.base}></Flex>
+        <Flex w={["0", "10em", "10em"]} h="100%" bgColor={theme.base}></Flex>
         <Flex
           w="100%"
           h="100%"
           direction="column"
           overflowX="hidden"
           overflowY="scroll"
+          gap="6em"
         >
           {children}
           <Footer />
