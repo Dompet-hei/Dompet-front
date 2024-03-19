@@ -4,19 +4,19 @@ import {
   CardBody,
   Stack,
   Heading,
-  Text,
   Divider,
-  CardFooter,
-  ButtonGroup,
-  Button,
   Avatar,
+  Stat,
+  StatNumber,
+  StatLabel,
+  CardFooter,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { UserContext } from "../../UserProvider";
 import UserProprety from "./components/UserProprety";
 
 const AboutUser = () => {
-  const { name, id } = useContext(UserContext);
+  const { name, id, balance } = useContext(UserContext);
 
   return (
     <Flex justifyContent="center" alignItems="center" h="100%" w="100%">
@@ -34,6 +34,12 @@ const AboutUser = () => {
             </Flex>
           </Stack>
         </CardBody>
+        <CardFooter>
+          <Stat>
+            <StatLabel>Current Balance</StatLabel>
+            <StatNumber>{balance} Ar</StatNumber>
+          </Stat>
+        </CardFooter>
       </Card>
     </Flex>
   );

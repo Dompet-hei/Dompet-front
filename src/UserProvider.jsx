@@ -4,6 +4,7 @@ import { createContext } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { MainContext } from "./MainProvider";
 import useInput from "./hooks/useInput";
+import { useState } from "react";
 
 export const UserContext = createContext();
 
@@ -13,6 +14,7 @@ const DEFAULT_USER_NAME = "lorem";
 const UserProvider = ({ children, needRedirect }) => {
   const [name, setName] = useLocalStorage("name", DEFAULT_USER_NAME);
   const [id, setId] = useLocalStorage("id", DEFAULT_USER);
+  const [balance, setBalance] = useLocalStorage("balance", 0);
 
   const [nameInput, onChangeName] = useInput(name);
   const [idInput, onChangeId] = useInput(id);
@@ -48,8 +50,10 @@ const UserProvider = ({ children, needRedirect }) => {
       value={{
         name,
         id,
+        balance,
         setName,
         setId,
+        setBalance,
         nameInput,
         onChangeName,
         idInput,
