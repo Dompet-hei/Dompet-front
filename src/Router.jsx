@@ -5,6 +5,7 @@ import HeaderFooter from "./pages/layouts/HeaderFooter";
 import Error from "./pages/Error";
 import UserContext from "./UserProvider";
 import ChoseUser from "./pages/ChoseUser";
+import DebtsPage from "./pages/DebtsPage";
 
 const Router = () => {
   return (
@@ -22,6 +23,12 @@ const Router = () => {
         <Route
           element={<UserContext children={<ChoseUser />} />}
           path="/chose"
+        />
+        <Route
+          element={
+            <UserContext children={<HeaderFooter children={<DebtsPage />} />} />
+          }
+          path="/debts"
         />
         <Route element={<Error />} path="*" />
       </Routes>
