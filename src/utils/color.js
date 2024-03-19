@@ -1,5 +1,13 @@
 export const applyOpacity = (color, opacity) => {
-  return `${color}${opacity.toString(16)}`;
+  opacity *= 255;
+  opacity = Math.floor(opacity);
+  opacity = (+opacity).toString(16);
+  if (opacity.length == 1) {
+    opacity = "0" + opacity;
+  } else if (opacity.length == 0) {
+    opacity = "00";
+  }
+  return `${color}${opacity}`;
 };
 
 const createApplyOpacityFunction = (color) => {

@@ -1,11 +1,11 @@
 import { Flex, Button } from "@chakra-ui/react";
-import { theme } from "../../utils/color";
+import { theme, opacityTheme } from "../../utils/color";
 import { useContext } from "react";
 import { UserContext } from "../../UserProvider";
 import { useEffect } from "react";
 import { MainContext } from "../../MainProvider";
 
-const Header = () => {
+const Header = ({ h }) => {
   const { logoutAccount, id } = useContext(UserContext);
   const { redirect } = useContext(MainContext);
 
@@ -18,9 +18,9 @@ const Header = () => {
 
   return (
     <Flex
-      h="100px"
+      h={h}
       w="100%"
-      bgColor={theme.base}
+      bgColor={opacityTheme.base(0.7)}
       direction="row"
       alignItems="center"
       justifyContent="space-between"
