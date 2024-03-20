@@ -6,7 +6,7 @@ import Error from "./pages/Error";
 import UserContext from "./UserProvider";
 import ChoseUser from "./pages/ChoseUser";
 import DebtsPage from "./pages/DebtsPage";
-import WithdrawalsPage from "./pages/WithdrawalsPage";
+import WithdrawalsMessage from "./modal/WithdrawalsModal";
 
 const Router = () => {
   return (
@@ -34,7 +34,7 @@ const Router = () => {
         <Route
           element={
             <UserContext
-              children={<HeaderFooter children={<WithdrawalsPage />} />}
+              children={<HeaderFooter children={<WithdrawalsMessage />} />}
             />
           }
           path="/withdrawals"

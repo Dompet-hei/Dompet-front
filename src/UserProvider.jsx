@@ -16,7 +16,7 @@ const UserProvider = ({ children, needRedirect }) => {
   const [name, setName] = useLocalStorage("name", DEFAULT_USER_NAME);
   const [id, setId] = useLocalStorage("id", DEFAULT_USER);
   const [balance, setBalance] = useLocalStorage("balance", 0);
-  const [overdraft, addOverdraft] = useList([{}]);
+  const [overdraft, addOverdraft] = useList();
 
   const [nameInput, onChangeName] = useInput(name);
   const [idInput, onChangeId] = useInput(id);
