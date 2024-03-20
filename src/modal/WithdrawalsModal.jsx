@@ -75,25 +75,3 @@ const WithdrawalsModal = ({ isOpen, onOpen, onClose }) => {
 };
 
 export default WithdrawalsModal;
-
-/**
-<Flex w="10em" h="10em" fontSize="1.5em" direction="column" gap="3em" padding="2em">
-  <Text>Remove move from your account</Text>
-  <Divider w="80%" ml="10%" />
-  <Stat>
-    <StatLabel>
-      Value
-      <StatDownArrow />
-    </StatLabel>
-    <StatHelpText>
-      <input
-        type="range"
-        defaultValue="0"
-        onChange={onChangeInput}
-      />
-    </StatHelpText>
-    <StatNumber>{input} Ar</StatNumber>
-  </Stat>
-  <Button colorScheme="blue">Get Money</Button>
-</Flex>
-      */
