@@ -11,14 +11,23 @@ export const UserContext = createContext();
 
 const DEFAULT_USER = "";
 const DEFAULT_USER_NAME = "lorem";
+const DEFAULT_USER_FIRST_NAME = "lorem";
+const DEFAULT_USER_SALARY = 0;
 
 const UserProvider = ({ children, needRedirect }) => {
   const [name, setName] = useLocalStorage("name", DEFAULT_USER_NAME);
+  const [firstName, setFirstName] = useLocalStorage(
+    "first_name",
+    DEFAULT_USER_FIRST_NAME,
+  );
+  const [salary, setSalary] = useLocalStorage("salary", DEFAULT_USER_SALARY);
   const [id, setId] = useLocalStorage("id", DEFAULT_USER);
   const [balance, setBalance] = useLocalStorage("balance", 0);
   const [overdraft, addOverdraft] = useList();
 
   const [nameInput, onChangeName] = useInput(name);
+  const [firstNameInput, onChangeFirstName] = useInput(firstName);
+  const [salaryInput, onChangeSalary] = useInput(salary);
   const [idInput, onChangeId] = useInput(id);
 
   const { redirect, isInPath } = useContext(MainContext);
@@ -31,15 +40,25 @@ const UserProvider = ({ children, needRedirect }) => {
     return !isEmptyUser() || !needRedirect;
   };
 
-  const loginAccount = () => {
-    setName(nameInput);
-    setId(idInput);
+  const setAllArgs = (idValue, nameValue, firstNameValue, salaryValue) => {
+    setName(nameValue);
+    setId(idValue);
+    setFirstName(firstNameValue);
+    setSalary(salaryValue);
   };
 
-  const logoutAccount = () => {
-    setName(DEFAULT_USER_NAME);
-    setId(DEFAULT_USER);
-  };
+  const modifyAccount = () =>
+    setAllArgs(idInput, nameInput, firstNameInput, salaryInput);
+
+  const loginAccount = modifyAccount;
+
+  const logoutAccount = () =>
+    setAllArgs(
+      DEFAULT_USER,
+      DEFAULT_USER_NAME,
+      DEFAULT_USER_FIRST_NAME,
+      DEFAULT_USER_SALARY,
+    );
 
   useEffect(() => {
     if (!validatePage() && !isInPath("/chose")) {
@@ -54,16 +73,25 @@ const UserProvider = ({ children, needRedirect }) => {
         id,
         balance,
         overdraft,
+        firstName,
+        salary,
         setName,
         setId,
         setBalance,
+        setFirstName,
+        setSalary,
         addOverdraft,
         nameInput,
         onChangeName,
         idInput,
         onChangeId,
+        firstNameInput,
+        onChangeFirstName,
+        salaryInput,
+        onChangeSalary,
         loginAccount,
         logoutAccount,
+        modifyAccount,
       }}
     >
       {validatePage() ? children : <></>}
