@@ -1,17 +1,9 @@
 import {
   Box,
-  Button,
   Flex,
-  FormControl,
-  FormLabel,
   Heading,
   IconButton,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Text,
   Stack,
-  Textarea,
   Tooltip,
   useClipboard,
   useColorModeValue,
@@ -26,6 +18,7 @@ import { MainContext } from "../MainProvider";
 import { FetchContext } from "../FetchProvider";
 import { useState } from "react";
 import { useEffect } from "react";
+import FormTemplate from "./components/FormTemplate";
 
 const confetti = {
   light: {
@@ -44,15 +37,9 @@ const CONFETTI_DARK = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
 
 export default function ChoseUser() {
   const { redirect } = useContext(MainContext);
-  const { onChangeName, onChangeId, loginAccount, IdInput, id, isEmptyUser } =
-    useContext(UserContext);
+  const { id, isEmptyUser } = useContext(UserContext);
   const { hasCopied, onCopy } = useClipboard("example@example.com");
-  const { verb } = useContext(FetchContext);
   const toast = useToast();
-
-  const handleSubmit = () => {
-    loginAccount();
-  };
 
   useEffect(() => {
     if (isEmptyUser()) {
@@ -175,41 +162,7 @@ export default function ChoseUser() {
                 color={useColorModeValue("gray.700", "whiteAlpha.900")}
                 shadow="base"
               >
-                <VStack spacing={5}>
-                  <FormControl isRequired>
-                    <FormLabel>Account</FormLabel>
-                    <Input
-                      type="text"
-                      name="account"
-                      placeholder="Your Account"
-                      onChange={onChangeId}
-                    />
-                  </FormControl>
-
-                  <FormControl isRequired>
-                    <FormLabel>Name</FormLabel>
-                    <Input
-                      type="text"
-                      name="name"
-                      placeholder="Your Name"
-                      onChange={onChangeName}
-                    />
-                  </FormControl>
-
-                  <Button
-                    type="submit"
-                    colorScheme="blue"
-                    bg="blue.400"
-                    color="white"
-                    _hover={{
-                      bg: "blue.500",
-                    }}
-                    width="full"
-                    onClick={handleSubmit}
-                  >
-                    Connect
-                  </Button>
-                </VStack>
+                <FormTemplate />
               </Box>
             </Stack>
           </VStack>
