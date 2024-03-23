@@ -5,38 +5,18 @@ import {
   Input,
   VStack,
 } from "@chakra-ui/react";
-import { useContext } from "react";
-import { UserContext } from "../../UserProvider";
 
-export default () => {
-  const { onChangeName, onChangeId, loginAccount, IdInput } =
-    useContext(UserContext);
-
-  const handleSubmit = () => {
-    loginAccount();
-  };
-
+export default ({ listInput, handleSubmit }) => {
   return (
     <VStack spacing={5}>
-      <FormControl isRequired>
-        <FormLabel>Account</FormLabel>
-        <Input
-          type="text"
-          name="account"
-          placeholder="Your Account"
-          onChange={onChangeId}
-        />
-      </FormControl>
-
-      <FormControl isRequired>
-        <FormLabel>Name</FormLabel>
-        <Input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          onChange={onChangeName}
-        />
-      </FormControl>
+      {listInput.map((c, i) => {
+        return (
+          <FormControl isRequired={c.isRequired} key={`input${i}`}>
+            <FormLabel>{c.label}</FormLabel>
+            <Input {...c.props} />
+          </FormControl>
+        );
+      })}
 
       <Button
         type="submit"
@@ -47,7 +27,6 @@ export default () => {
           bg: "blue.500",
         }}
         width="full"
-        onClick={handleSubmit}
       >
         Connect
       </Button>

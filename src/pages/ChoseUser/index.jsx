@@ -13,12 +13,12 @@ import {
 import { useContext } from "react";
 import { BsGithub, BsLinkedin, BsPerson, BsTwitter } from "react-icons/bs";
 import { MdEmail, MdOutlineEmail } from "react-icons/md";
-import { UserContext } from "../UserProvider";
-import { MainContext } from "../MainProvider";
-import { FetchContext } from "../FetchProvider";
+import { UserContext } from "../../UserProvider";
+import { MainContext } from "../../MainProvider";
+import { FetchContext } from "../../FetchProvider";
 import { useState } from "react";
 import { useEffect } from "react";
-import FormTemplate from "./components/FormTemplate";
+import LoginForm from "./components/LoginForm";
 
 const confetti = {
   light: {
@@ -162,7 +162,7 @@ export default function ChoseUser() {
                 color={useColorModeValue("gray.700", "whiteAlpha.900")}
                 shadow="base"
               >
-                <FormTemplate />
+                <LoginForm />
               </Box>
             </Stack>
           </VStack>

@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import HeaderFooter from "./pages/layouts/HeaderFooter";
 import Error from "./pages/Error";
 import UserContext from "./UserProvider";
-import ChoseUser from "./pages/ChoseUser";
+import ChoseUser from "./pages/ChoseUser/";
 import DebtsPage from "./pages/DebtsPage";
 import WithdrawalsMessage from "./modal/WithdrawalsModal";
 
