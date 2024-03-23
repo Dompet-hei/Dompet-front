@@ -16,12 +16,16 @@ import {
   useClipboard,
   useColorModeValue,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { BsGithub, BsLinkedin, BsPerson, BsTwitter } from "react-icons/bs";
 import { MdEmail, MdOutlineEmail } from "react-icons/md";
 import { UserContext } from "../UserProvider";
 import { MainContext } from "../MainProvider";
+import { FetchContext } from "../FetchProvider";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const confetti = {
   light: {
@@ -40,13 +44,29 @@ const CONFETTI_DARK = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
 
 export default function ChoseUser() {
   const { redirect } = useContext(MainContext);
-  const { onChangeName, onChangeId, loginAccount } = useContext(UserContext);
+  const { onChangeName, onChangeId, loginAccount, IdInput, id, isEmptyUser } =
+    useContext(UserContext);
   const { hasCopied, onCopy } = useClipboard("example@example.com");
+  const { verb } = useContext(FetchContext);
+  const toast = useToast();
 
   const handleSubmit = () => {
     loginAccount();
-    redirect("/");
   };
+
+  useEffect(() => {
+    if (isEmptyUser()) {
+      toast({
+        title: "Dab credential",
+        description: "One of your credential(s) is not valid",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    } else {
+      redirect("/");
+    }
+  }, [id]);
 
   return (
     <Flex

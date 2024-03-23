@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { createContext } from "react";
+import FetchProvider from "./FetchProvider";
 
 export const MainContext = createContext();
 
@@ -25,7 +26,7 @@ const MainProvider = ({ children }) => {
         isInPath,
       }}
     >
-      {children}
+      <FetchProvider>{children}</FetchProvider>
     </MainContext.Provider>
   );
 };

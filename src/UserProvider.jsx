@@ -6,6 +6,7 @@ import { MainContext } from "./MainProvider";
 import useInput from "./hooks/useInput";
 import { useState } from "react";
 import useList from "./hooks/useList";
+import { FetchContext } from "./FetchProvider";
 
 export const UserContext = createContext();
 
@@ -13,6 +14,7 @@ const DEFAULT_USER = "";
 const DEFAULT_USER_NAME = "lorem";
 const DEFAULT_USER_FIRST_NAME = "lorem";
 const DEFAULT_USER_SALARY = 0;
+const DEFAULT_CREATION_DATE = Date.UTC(2000, 1, 1);
 
 const UserProvider = ({ children, needRedirect }) => {
   const [name, setName] = useLocalStorage("name", DEFAULT_USER_NAME);
@@ -24,11 +26,20 @@ const UserProvider = ({ children, needRedirect }) => {
   const [id, setId] = useLocalStorage("id", DEFAULT_USER);
   const [balance, setBalance] = useLocalStorage("balance", 0);
   const [overdraft, addOverdraft] = useList();
+  const [creationDate, setCreationDate] = useLocalStorage(
+    "creation_date",
+    DEFAULT_CREATION_DATE,
+  );
+  const [isActive, setIsActive] = useLocalStorage("active", false);
 
   const [nameInput, onChangeName] = useInput(name);
   const [firstNameInput, onChangeFirstName] = useInput(firstName);
   const [salaryInput, onChangeSalary] = useInput(salary);
   const [idInput, onChangeId] = useInput(id);
+  const [creationDateInput, onChangeCreationDate] = useInput(creationDate);
+  const [isActiveInput, onChangeIsActive] = useInput(isActive);
+
+  const { verb } = useContext(FetchContext);
 
   const { redirect, isInPath } = useContext(MainContext);
 
@@ -40,17 +51,40 @@ const UserProvider = ({ children, needRedirect }) => {
     return !isEmptyUser() || !needRedirect;
   };
 
-  const setAllArgs = (idValue, nameValue, firstNameValue, salaryValue) => {
+  const setAllArgs = (
+    idValue,
+    nameValue,
+    firstNameValue,
+    salaryValue,
+    creationDateValue,
+    isActiveVaue,
+  ) => {
     setName(nameValue);
     setId(idValue);
     setFirstName(firstNameValue);
     setSalary(salaryValue);
+    setCreationDate(creationDateValue);
+    setIsActive(isActiveVaue);
   };
 
   const modifyAccount = () =>
-    setAllArgs(idInput, nameInput, firstNameInput, salaryInput);
+    setAllArgs(
+      idInput,
+      nameInput,
+      firstNameInput,
+      salaryInput,
+      creationDateInput,
+      isActiveInput,
+    );
 
-  const loginAccount = modifyAccount;
+  const loginAccount = () => {
+    const result = verb.get(`/account/${idInput}`, {
+      accountId: setId,
+      creationDate: setCreationDate,
+      monthlyNetSalary: setSalary,
+      isActive: setIsActive,
+    });
+  };
 
   const logoutAccount = () =>
     setAllArgs(
@@ -58,6 +92,8 @@ const UserProvider = ({ children, needRedirect }) => {
       DEFAULT_USER_NAME,
       DEFAULT_USER_FIRST_NAME,
       DEFAULT_USER_SALARY,
+      DEFAULT_CREATION_DATE,
+      false,
     );
 
   useEffect(() => {
@@ -75,11 +111,15 @@ const UserProvider = ({ children, needRedirect }) => {
         overdraft,
         firstName,
         salary,
+        creationDate,
+        isActive,
         setName,
         setId,
         setBalance,
         setFirstName,
         setSalary,
+        setCreationDate,
+        setIsActive,
         addOverdraft,
         nameInput,
         onChangeName,
@@ -89,9 +129,14 @@ const UserProvider = ({ children, needRedirect }) => {
         onChangeFirstName,
         salaryInput,
         onChangeSalary,
+        creationDateInput,
+        onChangeCreationDate,
+        isActiveInput,
+        onChangeIsActive,
         loginAccount,
         logoutAccount,
         modifyAccount,
+        isEmptyUser,
       }}
     >
       {validatePage() ? children : <></>}
