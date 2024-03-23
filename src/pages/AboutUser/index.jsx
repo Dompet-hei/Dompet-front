@@ -5,7 +5,6 @@ import {
   Stack,
   Heading,
   Divider,
-  Avatar,
   Stat,
   StatNumber,
   StatLabel,
@@ -18,6 +17,7 @@ import UserProprety from "./components/UserProprety";
 import { useDisclosure } from "@chakra-ui/react";
 import ModificationProfileModal from "../../modal/ModificationProfileModal";
 import { useEffect } from "react";
+import AccountAvatar from "../components/AccountAvatar";
 
 const AboutUser = () => {
   const { name, id, balance, firstName } = useContext(UserContext);
@@ -32,14 +32,7 @@ const AboutUser = () => {
           <Stack mt="6" spacing="3">
             <Heading size="md">Weclome</Heading>
             <Flex minW="60em" gap={["2.5em", "1.5em", "3em"]}>
-              <Tooltip label="Modify ?">
-                <Avatar
-                  name={name}
-                  borderRadius="lg"
-                  mt="2em"
-                  onClick={onOpen}
-                />
-              </Tooltip>
+              <AccountAvatar name={name} onOpen={onOpen} />
               <ModificationProfileModal
                 isOpen={isOpen}
                 onOpen={onOpen}
