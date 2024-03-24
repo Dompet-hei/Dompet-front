@@ -16,6 +16,7 @@ import useInput from "../hooks/useInput";
 import { useContext } from "react";
 import { MainContext } from "../MainProvider";
 import { UserContext } from "../UserProvider";
+import ModifyForm from "./ModifyForm";
 
 const ModificationProfileModal = ({ isOpen, onOpen, onClose }) => {
   const [input, onChangeInput, clearInput] = useInput(0);
@@ -45,33 +46,8 @@ const ModificationProfileModal = ({ isOpen, onOpen, onClose }) => {
           Modify <ModalCloseButton />
         </ModalHeader>
         <ModalBody>
-          <Divider w="80%" ml="10%" />
-          <Flex direction="column">
-            <input
-              type="text"
-              onChange={onChangeName}
-              placeholder="Name"
-              defaultValue={name}
-            />
-            <input
-              type="text"
-              onChange={onChangeFirstName}
-              placeholder="First Name"
-              defaultValue={firstName}
-            />
-            <input
-              type="number"
-              onChange={onChangeSalary}
-              placeholder="Month Salary"
-              defaultValue={salary}
-            />
-          </Flex>
+          <ModifyForm onClose={onClose} />
         </ModalBody>
-        <ModalFooter>
-          <Button colorScheme="blue" onClick={handleSubmit} type="submit">
-            Submit
-          </Button>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   );

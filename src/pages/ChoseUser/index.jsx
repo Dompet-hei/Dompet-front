@@ -79,7 +79,7 @@ export default function ChoseUser() {
                 md: "5xl",
               }}
             >
-              Get in Touch
+              Welcome! Login?
             </Heading>
 
             <Stack

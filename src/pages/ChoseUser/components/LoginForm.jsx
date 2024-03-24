@@ -3,7 +3,7 @@ import FormTemplate from "../../components/FormTemplate";
 import { UserContext } from "../../../UserProvider";
 
 export default () => {
-  const { onChangeName, onChangeId, loginAccount } = useContext(UserContext);
+  const { onChangeId, loginAccount } = useContext(UserContext);
 
   const handleSubmit = () => {
     loginAccount();
@@ -19,21 +19,12 @@ export default () => {
             type: "text",
             name: "account",
             placeholder: "Your Account ID",
-            onChange: { onChangeId },
-          },
-        },
-        {
-          isRequired: true,
-          label: "Name",
-          props: {
-            type: "text",
-            name: "name",
-            placeholder: "Your Name",
-            onChange: { onChangeName },
+            onChange: onChangeId,
           },
         },
       ]}
       handleSubmit={handleSubmit}
+      buttonLabel="Login"
     />
   );
 };
