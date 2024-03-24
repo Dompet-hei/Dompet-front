@@ -31,7 +31,7 @@ const UserProvider = ({ children, needRedirect }) => {
     DEFAULT_CREATION_DATE,
   );
   const [isActive, setIsActive] = useLocalStorage("active", false);
-  const [clientID, setClientId] = useLocalStorage("client-id", 0);
+  const [clientID, setClientId] = useLocalStorage("client-id", null);
 
   const [nameInput, onChangeName] = useInput(name);
   const [firstNameInput, onChangeFirstName] = useInput(firstName);
@@ -71,7 +71,12 @@ const UserProvider = ({ children, needRedirect }) => {
     setClientId(clientIDValue);
   };
 
-  const modifyAccount = () =>
+  const modifyAccount = () => {
+    verb.put("/client", {
+      clientId: clientIdInput,
+      lastName: nameInput,
+      firstName: firstNameInput,
+    });
     setAllArgs(
       idInput,
       nameInput,
@@ -81,14 +86,22 @@ const UserProvider = ({ children, needRedirect }) => {
       isActiveInput,
       clientIdInput,
     );
+  };
 
   const loginAccount = () => {
-    const result = verb.get(`/account/${idInput}`, {
+    verb.get(`/account/${idInput}`, {
       accountId: setId,
       creationDate: setCreationDate,
       monthlyNetSalary: setSalary,
       isActive: setIsActive,
       clientId: setClientId,
+    });
+  };
+
+  const getAbout = () => {
+    verb.get(`/client/${clientID}`, {
+      lastName: setName,
+      firstName: setFirstName,
     });
   };
 
@@ -146,6 +159,7 @@ const UserProvider = ({ children, needRedirect }) => {
         onChangeClientId,
         loginAccount,
         logoutAccount,
+        getAbout,
         modifyAccount,
         isEmptyUser,
       }}
