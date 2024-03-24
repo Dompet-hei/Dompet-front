@@ -30,6 +30,10 @@ const UserProvider = ({ children, needRedirect }) => {
     "creation_date",
     DEFAULT_CREATION_DATE,
   );
+  const [birthDate, setBirthDate] = useLocalStorage(
+    "birth-date",
+    DEFAULT_CREATION_DATE,
+  );
   const [isActive, setIsActive] = useLocalStorage("active", false);
   const [clientID, setClientId] = useLocalStorage("client-id", null);
 
@@ -38,6 +42,7 @@ const UserProvider = ({ children, needRedirect }) => {
   const [salaryInput, onChangeSalary] = useInput(salary);
   const [idInput, onChangeId] = useInput(id);
   const [creationDateInput, onChangeCreationDate] = useInput(creationDate);
+  const [birthDateInput, onChangeBirthDate] = useInput(birthDate);
   const [isActiveInput, onChangeIsActive] = useInput(isActive);
   const [clientIdInput, onChangeClientId] = useInput(clientID);
 
@@ -59,6 +64,7 @@ const UserProvider = ({ children, needRedirect }) => {
     firstNameValue,
     salaryValue,
     creationDateValue,
+    birthDateValue,
     isActiveVaue,
     clientIDValue,
   ) => {
@@ -67,6 +73,7 @@ const UserProvider = ({ children, needRedirect }) => {
     setFirstName(firstNameValue);
     setSalary(salaryValue);
     setCreationDate(creationDateValue);
+    setBirthDate(birthDateValue);
     setIsActive(isActiveVaue);
     setClientId(clientIDValue);
   };
@@ -76,7 +83,7 @@ const UserProvider = ({ children, needRedirect }) => {
       clientId: clientIdInput,
       lastName: nameInput,
       firstName: firstNameInput,
-      birthDate: "1990-05-15",
+      birthDate: birthDateInput,
     });
     setAllArgs(
       idInput,
@@ -84,6 +91,7 @@ const UserProvider = ({ children, needRedirect }) => {
       firstNameInput,
       salaryInput,
       creationDateInput,
+      birthDateInput,
       isActiveInput,
       clientIdInput,
     );
@@ -103,6 +111,7 @@ const UserProvider = ({ children, needRedirect }) => {
     verb.get(`/client/${clientID}`, {
       lastName: setName,
       firstName: setFirstName,
+      birthDate: setBirthDate,
     });
   };
 
@@ -112,6 +121,7 @@ const UserProvider = ({ children, needRedirect }) => {
       DEFAULT_USER_NAME,
       DEFAULT_USER_FIRST_NAME,
       DEFAULT_USER_SALARY,
+      DEFAULT_CREATION_DATE,
       DEFAULT_CREATION_DATE,
       false,
       null,
@@ -133,6 +143,7 @@ const UserProvider = ({ children, needRedirect }) => {
         firstName,
         salary,
         creationDate,
+        birthDate,
         isActive,
         clientID,
         setName,
@@ -141,6 +152,7 @@ const UserProvider = ({ children, needRedirect }) => {
         setFirstName,
         setSalary,
         setCreationDate,
+        setBirthDate,
         setIsActive,
         setClientId,
         addOverdraft,
@@ -154,6 +166,8 @@ const UserProvider = ({ children, needRedirect }) => {
         onChangeSalary,
         creationDateInput,
         onChangeCreationDate,
+        birthDateInput,
+        onChangeBirthDate,
         isActiveInput,
         onChangeIsActive,
         clientIdInput,
