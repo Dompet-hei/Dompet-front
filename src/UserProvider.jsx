@@ -76,6 +76,7 @@ const UserProvider = ({ children, needRedirect }) => {
       clientId: clientIdInput,
       lastName: nameInput,
       firstName: firstNameInput,
+      birthDate: "1990-05-15",
     });
     setAllArgs(
       idInput,

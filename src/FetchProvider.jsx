@@ -1,16 +1,18 @@
-import { useState } from "react";
 import { createContext } from "react";
+import { useToast } from "@chakra-ui/react";
 
 export const FetchContext = createContext();
 
 const BASE_URL = "http://localhost:8080";
 
 export default ({ children }) => {
+  const toast = useToast();
+
   var result;
   const fetchCommand = (url, method, body = null, def = (r) => r) => {
     fetch(`${BASE_URL}${url}`, {
       method,
-      body: body ? JSON.stringify(body) : body,
+      body,
       headers: {
         "Content-type": "application/json",
       },
@@ -19,7 +21,14 @@ export default ({ children }) => {
       .then((r) => r.json())
       .then(def)
       .catch((err) => {
-        console.log(err);
+        toast({
+          title: "Fetch error",
+          description: String(err),
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+        console.error(err);
       });
   };
 
@@ -32,7 +41,7 @@ export default ({ children }) => {
         }
       }),
     post: (url) => fetchCommand(url, "POST"),
-    put: (url, body) => fetchCommand(url, "PUT", body),
+    put: (url, body) => fetchCommand(url, "PUT", JSON.stringify(body)),
   };
 
   return (

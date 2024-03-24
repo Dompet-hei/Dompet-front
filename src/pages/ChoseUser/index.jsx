@@ -8,7 +8,6 @@ import {
   useClipboard,
   useColorModeValue,
   VStack,
-  useToast,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { BsGithub, BsLinkedin, BsPerson, BsTwitter } from "react-icons/bs";
@@ -39,18 +38,9 @@ export default function ChoseUser() {
   const { redirect } = useContext(MainContext);
   const { id, isEmptyUser } = useContext(UserContext);
   const { hasCopied, onCopy } = useClipboard("example@example.com");
-  const toast = useToast();
 
   useEffect(() => {
-    if (isEmptyUser()) {
-      toast({
-        title: "Dab credential",
-        description: "One of your credential(s) is not valid",
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-      });
-    } else {
+    if (!isEmptyUser()) {
       redirect("/");
     }
   }, [id]);
