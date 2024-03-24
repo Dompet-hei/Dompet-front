@@ -31,6 +31,7 @@ const UserProvider = ({ children, needRedirect }) => {
     DEFAULT_CREATION_DATE,
   );
   const [isActive, setIsActive] = useLocalStorage("active", false);
+  const [clientID, setClientId] = useLocalStorage("client-id", 0);
 
   const [nameInput, onChangeName] = useInput(name);
   const [firstNameInput, onChangeFirstName] = useInput(firstName);
@@ -38,6 +39,7 @@ const UserProvider = ({ children, needRedirect }) => {
   const [idInput, onChangeId] = useInput(id);
   const [creationDateInput, onChangeCreationDate] = useInput(creationDate);
   const [isActiveInput, onChangeIsActive] = useInput(isActive);
+  const [clientIdInput, onChangeClientId] = useInput(clientID);
 
   const { verb } = useContext(FetchContext);
 
@@ -58,6 +60,7 @@ const UserProvider = ({ children, needRedirect }) => {
     salaryValue,
     creationDateValue,
     isActiveVaue,
+    clientIDValue,
   ) => {
     setName(nameValue);
     setId(idValue);
@@ -65,6 +68,7 @@ const UserProvider = ({ children, needRedirect }) => {
     setSalary(salaryValue);
     setCreationDate(creationDateValue);
     setIsActive(isActiveVaue);
+    setClientId(clientIDValue);
   };
 
   const modifyAccount = () =>
@@ -75,6 +79,7 @@ const UserProvider = ({ children, needRedirect }) => {
       salaryInput,
       creationDateInput,
       isActiveInput,
+      clientIdInput,
     );
 
   const loginAccount = () => {
@@ -83,6 +88,7 @@ const UserProvider = ({ children, needRedirect }) => {
       creationDate: setCreationDate,
       monthlyNetSalary: setSalary,
       isActive: setIsActive,
+      clientId: setClientId,
     });
   };
 
@@ -94,6 +100,7 @@ const UserProvider = ({ children, needRedirect }) => {
       DEFAULT_USER_SALARY,
       DEFAULT_CREATION_DATE,
       false,
+      null,
     );
 
   useEffect(() => {
@@ -113,6 +120,7 @@ const UserProvider = ({ children, needRedirect }) => {
         salary,
         creationDate,
         isActive,
+        clientID,
         setName,
         setId,
         setBalance,
@@ -120,6 +128,7 @@ const UserProvider = ({ children, needRedirect }) => {
         setSalary,
         setCreationDate,
         setIsActive,
+        setClientId,
         addOverdraft,
         nameInput,
         onChangeName,
@@ -133,6 +142,8 @@ const UserProvider = ({ children, needRedirect }) => {
         onChangeCreationDate,
         isActiveInput,
         onChangeIsActive,
+        clientIdInput,
+        onChangeClientId,
         loginAccount,
         logoutAccount,
         modifyAccount,

@@ -32,12 +32,6 @@ const ModificationProfileModal = ({ isOpen, onOpen, onClose }) => {
 
   const { redirect } = useContext(MainContext);
 
-  const handleSubmit = () => {
-    modifyAccount();
-    onClose();
-    redirect("/");
-  };
-
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />

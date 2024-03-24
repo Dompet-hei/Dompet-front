@@ -20,7 +20,7 @@ import { useEffect } from "react";
 import AccountAvatar from "../components/AccountAvatar";
 
 const AboutUser = () => {
-  const { name, id, balance, firstName } = useContext(UserContext);
+  const { name, id, balance, firstName, clientID } = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {}, [name, id]);
@@ -41,6 +41,7 @@ const AboutUser = () => {
               <Divider orientation="vertical" h="9em" />
               <Flex direction="column" gap="1em">
                 <UserProprety id="Account" value={id} />
+                <UserProprety id="Client" value={clientID} />
                 <UserProprety id="Name" value={name} />
                 <UserProprety id="First Name" value={firstName} />
               </Flex>
