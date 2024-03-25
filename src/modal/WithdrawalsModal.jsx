@@ -20,19 +20,17 @@ import {
 import useInput from "../hooks/useInput";
 import { useContext } from "react";
 import { MainContext } from "../MainProvider";
-import FormTemplate from "../pages/components/FormTemplate";
 import { UserContext } from "../UserProvider";
 
 const WithdrawalsModal = ({ isOpen, onOpen, onClose }) => {
   const [input, onChangeInput, clearInput] = useInput(0);
 
   const { redirect } = useContext(MainContext);
-  const { balance } = useContext(UserContext);
+  const { balance, postDepts } = useContext(UserContext);
 
   const handleSubmit = () => {
-    alert(`send money value: ${input}`);
+    postDepts(input);
     onClose();
-    redirect("/");
   };
 
   return (

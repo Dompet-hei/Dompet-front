@@ -25,18 +25,17 @@ const DebtsPage = () => {
   return (
     <Flex>
       <TableContainer>
-        <Table w="100%">
+        <Table w="100%" variant="striped" colorScheme="teal">
           <Thead>
-            <Tr>
-              <Th fontSize="1em">Over Draft</Th>
-              <Th fontSize="1em">Over Draft value</Th>
-              <Th fontSize="1em" textAlign="center">
-                Interest
-                <Th fontSize="1em">1 to 7</Th>
-                <Th fontSize="1em">after 7</Th>
-              </Th>
-              <Th fontSize="1em">Limit Date</Th>
-            </Tr>
+            <Row
+              content={{
+                overdraftId: "Over Draft",
+                overdraftBalance: "Over Draft value",
+                overdraftReimbursementDate: "Limit Date",
+              }}
+              fontSize="1em"
+              head
+            />
           </Thead>
           <Tbody>
             {Array.isArray(overdraft) ? (

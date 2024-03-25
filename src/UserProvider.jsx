@@ -115,6 +115,25 @@ const UserProvider = ({ children, needRedirect }) => {
     });
   };
 
+  const getBalance = () => {
+    verb.get(`/account/${id}/balance`, {
+      balance: setBalance,
+    });
+  };
+
+  const postDepts = (value) => {
+    verb.post(`/account/${id}/overdraft`, {
+      overdraftId: `${id}-${Date.now()}`,
+      accountId: id,
+      overdraftAllowed: true,
+      overdraftBalance: value,
+      overdraftStartDate: new Date(),
+      overdraftReimbursementDate: new Date(),
+      overdraftInterestDay1to7: 0,
+      overdraftInterestAfter7: 0,
+    });
+  };
+
   const logoutAccount = () =>
     setAllArgs(
       DEFAULT_USER,
@@ -133,6 +152,10 @@ const UserProvider = ({ children, needRedirect }) => {
       redirect("/chose");
     }
   }, []);
+
+  useEffect(() => {
+    getBalance();
+  });
 
   return (
     <UserContext.Provider
@@ -179,6 +202,8 @@ const UserProvider = ({ children, needRedirect }) => {
         getAbout,
         modifyAccount,
         isEmptyUser,
+        postDepts,
+        getBalance,
       }}
     >
       {validatePage() ? children : <></>}
