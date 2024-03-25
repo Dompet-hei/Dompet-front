@@ -8,22 +8,19 @@ import {
   Tr,
   Th,
   Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { UserContext } from "../../UserProvider";
 import Row from "./components/Row";
 import { useDisclosure } from "@chakra-ui/react";
 import WithdrawalsMessage from "../../modal/WithdrawalsModal";
+import { useEffect } from "react";
 
 const DebtsPage = () => {
   const { overdraft } = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  useEffect(() => {}, [overdraft]);
 
   return (
     <Flex>
@@ -31,17 +28,25 @@ const DebtsPage = () => {
         <Table w="100%">
           <Thead>
             <Tr>
-              <Th>OverDraft</Th>
-              <Th>Limit Date</Th>
+              <Th fontSize="1em">Over Draft</Th>
+              <Th fontSize="1em">Over Draft value</Th>
+              <Th fontSize="1em" textAlign="center">
+                Interest
+                <Th fontSize="1em">1 to 7</Th>
+                <Th fontSize="1em">after 7</Th>
+              </Th>
+              <Th fontSize="1em">Limit Date</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {overdraft.map((e) => (
-              <Row content={e} />
-            ))}
+            {Array.isArray(overdraft) ? (
+              overdraft.map((e) => <Row key={e.overdraftId} content={e} />)
+            ) : (
+              <></>
+            )}
             <Row
               content={{
-                value: (
+                overdraftId: (
                   <Button colorScheme="blue" onClick={onOpen}>
                     Add
                   </Button>

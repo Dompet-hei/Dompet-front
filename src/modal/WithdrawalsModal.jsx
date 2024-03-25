@@ -1,7 +1,5 @@
 import {
   Divider,
-  Flex,
-  Text,
   Button,
   Modal,
   ModalOverlay,
@@ -22,11 +20,14 @@ import {
 import useInput from "../hooks/useInput";
 import { useContext } from "react";
 import { MainContext } from "../MainProvider";
+import FormTemplate from "../pages/components/FormTemplate";
+import { UserContext } from "../UserProvider";
 
 const WithdrawalsModal = ({ isOpen, onOpen, onClose }) => {
   const [input, onChangeInput, clearInput] = useInput(0);
 
   const { redirect } = useContext(MainContext);
+  const { balance } = useContext(UserContext);
 
   const handleSubmit = () => {
     alert(`send money value: ${input}`);
@@ -56,6 +57,7 @@ const WithdrawalsModal = ({ isOpen, onOpen, onClose }) => {
                 onChange={onChangeInput}
                 style={{ width: "100%" }}
                 value={input}
+                max={balance}
               />
             </StatHelpText>
           </Stat>

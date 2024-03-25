@@ -36,8 +36,12 @@ export default ({ children }) => {
     get: (url, setters) =>
       fetchCommand(url, "GET", null, (r) => {
         result = r;
-        for (const setter in setters) {
-          setters[setter](setter in (r || {}) ? r[setter] : "");
+        if (Array.isArray(r)) {
+          setters(r);
+        } else {
+          for (const setter in setters) {
+            setters[setter](setter in (r || {}) ? r[setter] : "");
+          }
         }
       }),
     post: (url) => fetchCommand(url, "POST"),

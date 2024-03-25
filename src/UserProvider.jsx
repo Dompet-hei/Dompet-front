@@ -25,7 +25,7 @@ const UserProvider = ({ children, needRedirect }) => {
   const [salary, setSalary] = useLocalStorage("salary", DEFAULT_USER_SALARY);
   const [id, setId] = useLocalStorage("id", DEFAULT_USER);
   const [balance, setBalance] = useLocalStorage("balance", 0);
-  const [overdraft, addOverdraft] = useList();
+  const [overdraft, setOverdraft, addOverdraft] = useList();
   const [creationDate, setCreationDate] = useLocalStorage(
     "creation_date",
     DEFAULT_CREATION_DATE,
@@ -128,6 +128,7 @@ const UserProvider = ({ children, needRedirect }) => {
     );
 
   useEffect(() => {
+    verb.get(`/account/${id}/overdraft`, setOverdraft);
     if (!validatePage() && !isInPath("/chose")) {
       redirect("/chose");
     }
@@ -156,6 +157,7 @@ const UserProvider = ({ children, needRedirect }) => {
         setIsActive,
         setClientId,
         addOverdraft,
+        setOverdraft,
         nameInput,
         onChangeName,
         idInput,

@@ -8,6 +8,7 @@ import {
   useClipboard,
   useColorModeValue,
   VStack,
+  Image,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { BsGithub, BsLinkedin, BsPerson, BsTwitter } from "react-icons/bs";
@@ -69,7 +70,7 @@ export default function ChoseUser() {
                 md: "5xl",
               }}
             >
-              Welcome! Login?
+              Dompet
             </Heading>
 
             <Stack

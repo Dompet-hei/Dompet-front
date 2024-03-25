@@ -13,7 +13,7 @@ const useList = (init = []) => {
     setValueState([]);
   };
 
-  return [valueState, append, clear];
+  return [valueState, setValueState, append, clear];
 };
 
 export default useList;
