@@ -7,40 +7,45 @@ import UserContext from "./UserProvider";
 import ChoseUser from "./pages/ChoseUser/";
 import DebtsPage from "./pages/DebtsPage";
 import WithdrawalsMessage from "./modal/WithdrawalsModal";
+import MainProvider from "./MainProvider";
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          element={
-            <UserContext
-              needRedirect={true}
-              children={<HeaderFooter children={<Home />} />}
-            />
-          }
-          path="/"
-        />
-        <Route
-          element={<UserContext children={<ChoseUser />} />}
-          path="/chose"
-        />
-        <Route
-          element={
-            <UserContext children={<HeaderFooter children={<DebtsPage />} />} />
-          }
-          path="/debts"
-        />
-        <Route
-          element={
-            <UserContext
-              children={<HeaderFooter children={<WithdrawalsMessage />} />}
-            />
-          }
-          path="/withdrawals"
-        />
-        <Route element={<Error />} path="*" />
-      </Routes>
+      <MainProvider>
+        <Routes>
+          <Route
+            element={
+              <UserContext
+                needRedirect={true}
+                children={<HeaderFooter children={<Home />} />}
+              />
+            }
+            path="/"
+          />
+          <Route
+            element={<UserContext children={<ChoseUser />} />}
+            path="/chose"
+          />
+          <Route
+            element={
+              <UserContext
+                children={<HeaderFooter children={<DebtsPage />} />}
+              />
+            }
+            path="/debts"
+          />
+          <Route
+            element={
+              <UserContext
+                children={<HeaderFooter children={<WithdrawalsMessage />} />}
+              />
+            }
+            path="/withdrawals"
+          />
+          <Route element={<Error />} path="*" />
+        </Routes>
+      </MainProvider>
     </BrowserRouter>
   );
 };

@@ -1,7 +1,7 @@
 import { Button, Text } from "@chakra-ui/react";
-import { useContext } from "react";
-import { MainContext } from "../../../../MainProvider";
 import { theme } from "../../../../utils/color";
+import { MainContext } from "../../../../MainProvider";
+import { useContext } from "react";
 
 const RedirectButton = ({ link, text }) => {
   const { redirect } = useContext(MainContext);

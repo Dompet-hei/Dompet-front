@@ -1,12 +1,7 @@
-import MainProvider from "./MainProvider";
 import Router from "./Router";
 
 function App() {
-  return (
-    <MainProvider>
-      <Router />
-    </MainProvider>
-  );
+  return <Router />;
 }
 
 export default App;

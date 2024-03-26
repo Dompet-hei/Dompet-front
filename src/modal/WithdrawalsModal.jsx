@@ -25,7 +25,6 @@ import { UserContext } from "../UserProvider";
 const WithdrawalsModal = ({ isOpen, onOpen, onClose }) => {
   const [input, onChangeInput, clearInput] = useInput(0);
 
-  const { redirect } = useContext(MainContext);
   const { balance, putDepts } = useContext(UserContext);
 
   const handleSubmit = () => {

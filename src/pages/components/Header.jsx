@@ -6,6 +6,7 @@ import {
   MenuItem,
   MenuButton,
   MenuDivider,
+  Text,
 } from "@chakra-ui/react";
 import { opacityTheme } from "../../utils/color";
 import { useContext } from "react";
@@ -13,6 +14,7 @@ import { UserContext } from "../../UserProvider";
 import { useEffect } from "react";
 import { MainContext } from "../../MainProvider";
 import { FaAngleDown } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Header = ({ h }) => {
   const { logoutAccount, id } = useContext(UserContext);
@@ -35,9 +37,9 @@ const Header = ({ h }) => {
       justifyContent="space-between"
       paddingX="5em"
     >
-      <Flex>
-        <a href="/">Dompet</a>
-      </Flex>
+      <Link to="/">
+        <Text fontSize="1.5em">Dompet</Text>
+      </Link>
       <Flex>
         <Menu>
           <MenuButton
