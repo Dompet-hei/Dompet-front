@@ -44,7 +44,7 @@ export default ({ children }) => {
           }
         }
       }),
-    post: (url) => fetchCommand(url, "POST"),
+    post: (url, body) => fetchCommand(url, "POST", JSON.stringify(body)),
     put: (url, body) => fetchCommand(url, "PUT", JSON.stringify(body)),
   };
 

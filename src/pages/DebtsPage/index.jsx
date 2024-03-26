@@ -18,7 +18,7 @@ import { useEffect } from "react";
 
 const DebtsPage = () => {
   const { overdraft } = useContext(UserContext);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const useDisclosureDebts = useDisclosure();
 
   useEffect(() => {}, [overdraft]);
 
@@ -46,7 +46,10 @@ const DebtsPage = () => {
             <Row
               content={{
                 overdraftId: (
-                  <Button colorScheme="blue" onClick={onOpen}>
+                  <Button
+                    colorScheme="blue"
+                    onClick={useDisclosureDebts.onOpen}
+                  >
                     Add
                   </Button>
                 ),
@@ -55,7 +58,7 @@ const DebtsPage = () => {
           </Tbody>
         </Table>
       </TableContainer>
-      <WithdrawalsMessage isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+      <WithdrawalsMessage useDisclosure={useDisclosureDebts} />
     </Flex>
   );
 };

@@ -133,6 +133,23 @@ const UserProvider = ({ children, needRedirect }) => {
     });
   };
 
+  const doTransaction = (value, description) => {
+    verb.post(`/account/${id}/transactions`, {
+      transactionId: `${id}-${Date.now()}`,
+      accountId: id,
+      categoryId: "category1",
+      effectiveDate: new Date(),
+      recordDate: new Date(),
+      amount: value,
+      description: description,
+    });
+  };
+
+  const refreshValue = () => {
+    verb.get(`/account/${id}/overdraft`, setOverdraft);
+    getBalance();
+  };
+
   const logoutAccount = () =>
     setAllArgs(
       DEFAULT_USER,
@@ -150,15 +167,6 @@ const UserProvider = ({ children, needRedirect }) => {
       redirect("/chose");
     }
   }, []);
-
-  useEffect(() => {
-    if (
-      window.location.href.split("/").filter((e) => e == "chose").length !== 1
-    ) {
-      verb.get(`/account/${id}/overdraft`, setOverdraft);
-      getBalance();
-    }
-  });
 
   return (
     <UserContext.Provider
@@ -207,6 +215,8 @@ const UserProvider = ({ children, needRedirect }) => {
         isEmptyUser,
         putDepts,
         getBalance,
+        doTransaction,
+        refreshValue,
       }}
     >
       {validatePage() ? children : <></>}

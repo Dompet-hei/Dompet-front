@@ -2,9 +2,14 @@ import { Flex } from "@chakra-ui/react";
 import { useContext } from "react";
 import { UserContext } from "../UserProvider";
 import AboutUser from "./AboutUser/index.jsx";
+import { useEffect } from "react";
 
 const Home = () => {
-  const { name } = useContext(UserContext);
+  const { name, refreshValue } = useContext(UserContext);
+
+  useEffect(() => {
+    refreshValue();
+  }, []);
 
   return (
     <Flex

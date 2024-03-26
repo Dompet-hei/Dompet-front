@@ -7,6 +7,7 @@ import {
   MenuButton,
   MenuDivider,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { opacityTheme } from "../../utils/color";
 import { useContext } from "react";
@@ -15,10 +16,15 @@ import { useEffect } from "react";
 import { MainContext } from "../../MainProvider";
 import { FaAngleDown } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import WithdrawalsModal from "../../modal/WithdrawalsModal";
+import DepositsModal from "../../modal/DepositsModal";
 
 const Header = ({ h }) => {
   const { logoutAccount, id } = useContext(UserContext);
   const { redirect } = useContext(MainContext);
+
+  const withDrawalsUseDisclosure = useDisclosure();
+  const depositsUseDisclosure = useDisclosure();
 
   const handleLogOut = () => {
     logoutAccount();
@@ -50,11 +56,18 @@ const Header = ({ h }) => {
             Setting
           </MenuButton>
           <MenuList>
+            <MenuItem onClick={depositsUseDisclosure.onOpen}>Deposits</MenuItem>
+            <MenuItem onClick={withDrawalsUseDisclosure.onOpen}>
+              With Drawals
+            </MenuItem>
             <MenuDivider />
             <MenuItem onClick={handleLogOut}>LogOut</MenuItem>
           </MenuList>
         </Menu>
       </Flex>
+
+      <WithdrawalsModal useDisclosure={withDrawalsUseDisclosure} />
+      <DepositsModal useDisclosure={depositsUseDisclosure} />
     </Flex>
   );
 };

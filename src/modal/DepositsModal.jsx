@@ -3,8 +3,8 @@ import TransactionModalTemplate from "./TransactionModalTemplate";
 export default ({ useDisclosure }) => {
   return (
     <TransactionModalTemplate
-      title="Remove money from your account"
-      type="withdrawals"
+      title="Add money to your account"
+      type="deposits"
       useDisclosure={useDisclosure}
     />
   );
