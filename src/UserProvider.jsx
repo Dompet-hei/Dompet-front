@@ -120,8 +120,8 @@ const UserProvider = ({ children, needRedirect }) => {
     });
   };
 
-  const putDepts = (value) => {
-    verb.put("/overdraft", {
+  const postDepts = (value) => {
+    verb.post(`/account/${id}/overdraft`, {
       overdraftId: `${id}-${Date.now()}`,
       accountId: id,
       overdraftAllowed: true,
@@ -213,7 +213,7 @@ const UserProvider = ({ children, needRedirect }) => {
         getAbout,
         modifyAccount,
         isEmptyUser,
-        putDepts,
+        postDepts,
         getBalance,
         doTransaction,
         refreshValue,

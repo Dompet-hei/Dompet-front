@@ -21,13 +21,14 @@ import useInput from "../hooks/useInput";
 const typeTrasaction = {
   deposits: "deposits",
   withdrawals: "withdrawals",
+  overdraft: "overdraft",
 };
 
 export default ({ useDisclosure, title, type }) => {
   const [input, onChangeInput, clearInput] = useInput(0);
   const [description, onChangeDescription] = useInput("");
 
-  const { balance, putDepts } = useContext(UserContext);
+  const { balance, postDepts } = useContext(UserContext);
 
   const { doTransaction } = useContext(UserContext);
 
@@ -39,10 +40,13 @@ export default ({ useDisclosure, title, type }) => {
       case typeTrasaction.withdrawals:
         doTransaction(-input, description);
         break;
+      case typeTrasaction.overdraft:
+        postDepts(input);
+        break;
 
       default:
         console.log(
-          `Choice between ${typeTrasaction.deposits} and ${typeTrasaction.withdrawals}`,
+          `Choice between ${typeTrasaction.deposits} and ${typeTrasaction.withdrawals} and ${typeTrasaction.overdraft}`,
         );
         break;
     }
@@ -77,10 +81,14 @@ export default ({ useDisclosure, title, type }) => {
                 <></>
               )}
             </StatNumber>
-            <StatNumber>
-              Description
-              <Textarea onChange={onChangeDescription} />
-            </StatNumber>
+            {type != typeTrasaction.overdraft ? (
+              <StatNumber>
+                Description
+                <Textarea onChange={onChangeDescription} />
+              </StatNumber>
+            ) : (
+              <></>
+            )}
           </Stat>
         </ModalBody>
         <ModalFooter>
@@ -91,6 +99,7 @@ export default ({ useDisclosure, title, type }) => {
           <Button colorScheme="blue" onClick={handleSubmit} type="submit">
             {type == typeTrasaction.withdrawals ? "Get Money" : ""}
             {type == typeTrasaction.deposits ? "Save Money" : ""}
+            {type == typeTrasaction.overdraft ? "Borrow Money" : ""}
           </Button>
         </ModalFooter>
       </ModalContent>

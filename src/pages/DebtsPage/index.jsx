@@ -13,8 +13,8 @@ import { useContext } from "react";
 import { UserContext } from "../../UserProvider";
 import Row from "./components/Row";
 import { useDisclosure } from "@chakra-ui/react";
-import WithdrawalsMessage from "../../modal/WithdrawalsModal";
 import { useEffect } from "react";
+import OverDraftModal from "../../modal/OverDraftModal";
 
 const DebtsPage = () => {
   const { overdraft } = useContext(UserContext);
@@ -58,7 +58,7 @@ const DebtsPage = () => {
           </Tbody>
         </Table>
       </TableContainer>
-      <WithdrawalsMessage useDisclosure={useDisclosureDebts} />
+      <OverDraftModal useDisclosure={useDisclosureDebts} />
     </Flex>
   );
 };
