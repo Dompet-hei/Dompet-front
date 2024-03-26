@@ -52,15 +52,10 @@ const DebtsPage = () => {
                 ),
               }}
             />
-            <WithdrawalsMessage
-              isOpen={isOpen}
-              onOpen={onOpen}
-              onClose={onClose}
-            />
           </Tbody>
         </Table>
       </TableContainer>
-      <Stat></Stat>
+      <WithdrawalsMessage isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </Flex>
   );
 };

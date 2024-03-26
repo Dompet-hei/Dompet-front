@@ -4,7 +4,6 @@ import { createContext } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { MainContext } from "./MainProvider";
 import useInput from "./hooks/useInput";
-import { useState } from "react";
 import useList from "./hooks/useList";
 import { FetchContext } from "./FetchProvider";
 
@@ -121,8 +120,8 @@ const UserProvider = ({ children, needRedirect }) => {
     });
   };
 
-  const postDepts = (value) => {
-    verb.post(`/account/${id}/overdraft`, {
+  const putDepts = (value) => {
+    verb.put("/overdraft", {
       overdraftId: `${id}-${Date.now()}`,
       accountId: id,
       overdraftAllowed: true,
@@ -147,14 +146,18 @@ const UserProvider = ({ children, needRedirect }) => {
     );
 
   useEffect(() => {
-    verb.get(`/account/${id}/overdraft`, setOverdraft);
     if (!validatePage() && !isInPath("/chose")) {
       redirect("/chose");
     }
   }, []);
 
   useEffect(() => {
-    getBalance();
+    if (
+      window.location.href.split("/").filter((e) => e == "chose").length !== 1
+    ) {
+      verb.get(`/account/${id}/overdraft`, setOverdraft);
+      getBalance();
+    }
   });
 
   return (
@@ -202,7 +205,7 @@ const UserProvider = ({ children, needRedirect }) => {
         getAbout,
         modifyAccount,
         isEmptyUser,
-        postDepts,
+        putDepts,
         getBalance,
       }}
     >

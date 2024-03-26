@@ -26,10 +26,10 @@ const WithdrawalsModal = ({ isOpen, onOpen, onClose }) => {
   const [input, onChangeInput, clearInput] = useInput(0);
 
   const { redirect } = useContext(MainContext);
-  const { balance, postDepts } = useContext(UserContext);
+  const { balance, putDepts } = useContext(UserContext);
 
   const handleSubmit = () => {
-    postDepts(input);
+    putDepts(input);
     onClose();
   };
 
@@ -51,7 +51,6 @@ const WithdrawalsModal = ({ isOpen, onOpen, onClose }) => {
             <StatHelpText p="2em">
               <input
                 type="range"
-                defaultValue="0"
                 onChange={onChangeInput}
                 style={{ width: "100%" }}
                 value={input}
