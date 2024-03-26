@@ -7,10 +7,6 @@ import { useEffect } from "react";
 const Home = () => {
   const { name, refreshValue } = useContext(UserContext);
 
-  useEffect(() => {
-    refreshValue();
-  }, []);
-
   return (
     <Flex
       bgColor=""

@@ -28,7 +28,7 @@ const Header = ({ h }) => {
 
   const handleLogOut = () => {
     logoutAccount();
-    redirect("/");
+    redirect("/chose");
   };
 
   useEffect(() => {}, [id]);

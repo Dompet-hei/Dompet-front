@@ -168,6 +168,10 @@ const UserProvider = ({ children, needRedirect }) => {
     }
   }, []);
 
+  useEffect(() => {
+    refreshValue();
+  }, []);
+
   return (
     <UserContext.Provider
       value={{
