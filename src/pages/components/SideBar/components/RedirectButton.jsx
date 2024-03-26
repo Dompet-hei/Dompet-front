@@ -24,7 +24,7 @@ const RedirectButton = ({ link, text }) => {
       w="100%"
       h="4em"
       bgColor={theme.base}
-      colorScheme="cyan"
+      borderRadius={0}
     >
       <Text>{text || getPathFromLink() || "Some Text"}</Text>
     </Button>
