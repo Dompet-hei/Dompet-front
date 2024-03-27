@@ -7,6 +7,7 @@ import UserContext from "./UserProvider";
 import ChoseUser from "./pages/ChoseUser/";
 import DebtsPage from "./pages/DebtsPage";
 import MainProvider from "./MainProvider";
+import SignUp from "./pages/SignUp";
 
 const Router = () => {
   return (
@@ -25,6 +26,10 @@ const Router = () => {
           <Route
             element={<UserContext children={<ChoseUser />} />}
             path="/chose"
+          />
+          <Route
+            element={<UserContext children={<SignUp />} />}
+            path="/signup"
           />
           <Route
             element={
