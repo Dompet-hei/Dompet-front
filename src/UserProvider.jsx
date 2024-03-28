@@ -6,6 +6,7 @@ import { MainContext } from "./MainProvider";
 import useInput from "./hooks/useInput";
 import useList from "./hooks/useList";
 import { FetchContext } from "./FetchProvider";
+import { useBoolean } from "usehooks-ts";
 
 export const UserContext = createContext();
 
@@ -42,7 +43,7 @@ const UserProvider = ({ children, needRedirect }) => {
   const [idInput, onChangeId] = useInput(id);
   const [creationDateInput, onChangeCreationDate] = useInput(creationDate);
   const [birthDateInput, onChangeBirthDate] = useInput(birthDate);
-  const [isActiveInput, onChangeIsActive] = useInput(isActive);
+  const isActiveInput = useBoolean(isActive);
   const [clientIdInput, onChangeClientId] = useInput(clientID);
 
   const { verb } = useContext(FetchContext);
@@ -91,7 +92,7 @@ const UserProvider = ({ children, needRedirect }) => {
       salaryInput,
       creationDateInput,
       birthDateInput,
-      isActiveInput,
+      isActiveInput.value,
       clientIdInput,
     );
   };
@@ -209,7 +210,6 @@ const UserProvider = ({ children, needRedirect }) => {
         birthDateInput,
         onChangeBirthDate,
         isActiveInput,
-        onChangeIsActive,
         clientIdInput,
         onChangeClientId,
         loginAccount,

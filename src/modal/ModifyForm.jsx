@@ -1,13 +1,14 @@
 import { useContext } from "react";
 import { UserContext } from "../UserProvider";
 import FormTemplate from "../pages/components/FormTemplate";
+import { useEffect } from "react";
 
 export default ({ onClose }) => {
   const {
     onChangeName,
     onChangeFirstName,
     onChangeSalary,
-    onChangeIsActive,
+    isActiveInput,
     name,
     firstName,
     salary,
@@ -19,6 +20,10 @@ export default ({ onClose }) => {
     modifyAccount();
     onClose();
   };
+
+  useEffect(() => {
+    console.log("change");
+  }, [isActive]);
 
   return (
     <FormTemplate
@@ -57,10 +62,9 @@ export default ({ onClose }) => {
           label: "Activate (to get more money than you have)",
           useSwitch: true,
           props: {
-            type: "checkbox",
-            name: "activate",
-            onChange: onChangeIsActive,
-            defaultValue: isActive,
+            id: "activate",
+            onChange: isActiveInput.toggle,
+            defaultChecked: isActiveInput.value,
           },
         },
       ]}
