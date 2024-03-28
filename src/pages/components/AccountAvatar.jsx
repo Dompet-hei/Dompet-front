@@ -17,8 +17,9 @@ export default ({ name, onOpen }) => {
       name={!isHovered ? name : ""}
       icon={isHovered ? <MdChangeCircle /> : <></>}
       fontSize="2em"
+      w="5em"
+      h="5em"
       borderRadius="lg"
-      mt="2em"
       ref={avatarRef}
       onClick={onOpen}
     />

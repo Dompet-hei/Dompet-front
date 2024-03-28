@@ -1,3 +1,5 @@
+const lightTheme = true;
+
 export const applyOpacity = (color, opacity) => {
   opacity *= 255;
   opacity = Math.floor(opacity);
@@ -14,12 +16,26 @@ const createApplyOpacityFunction = (color) => {
   return (o) => applyOpacity(color, o);
 };
 
-export const theme = {
+const THEME = {
   light: "#B8EBD0",
   dark: "#292F36",
   alert: "#FF6B6B",
   base: "#B0C7BD",
 };
+
+export const theme = lightTheme
+  ? {
+      light: THEME.light,
+      dark: THEME.dark,
+      alert: THEME.alert,
+      base: THEME.base,
+    }
+  : {
+      light: THEME.dark,
+      dark: THEME.light,
+      alert: "#963F3F",
+      base: "#363D3A",
+    };
 
 export const opacityTheme = {
   light: createApplyOpacityFunction(theme.light),

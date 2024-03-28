@@ -9,7 +9,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { opacityTheme } from "../../utils/color";
+import { opacityTheme, theme } from "../../utils/color";
 import { useContext } from "react";
 import { UserContext } from "../../UserProvider";
 import { useEffect } from "react";
@@ -37,7 +37,7 @@ const Header = ({ h }) => {
     <Flex
       h={h}
       w="100%"
-      bgColor={opacityTheme.base(0.7)}
+      bgColor={theme.base}
       direction="row"
       alignItems="center"
       justifyContent="space-between"

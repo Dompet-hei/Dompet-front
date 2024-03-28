@@ -1,13 +1,13 @@
 import { Flex, Divider } from "@chakra-ui/react";
-import { theme } from "../../../utils/color";
+import { opacityTheme, theme } from "../../../utils/color";
 import RedirectButton from "./components/RedirectButton";
 
 const SideBar = ({ h }) => {
   return (
     <Flex
-      w={["0", "10em", "10em"]}
+      w={["0", "10em", "17em"]}
       h={h}
-      bgColor={theme.base}
+      bgColor={opacityTheme.base(0.7)}
       direction="column"
       overflow="auto"
       alignItems="center"
