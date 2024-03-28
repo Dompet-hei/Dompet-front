@@ -17,6 +17,7 @@ import {
 import { useContext } from "react";
 import { UserContext } from "../UserProvider";
 import useInput from "../hooks/useInput";
+import { MainContext } from "../MainProvider";
 
 const typeTrasaction = {
   deposits: "deposits",
@@ -28,9 +29,9 @@ export default ({ useDisclosure, title, type }) => {
   const [input, onChangeInput, clearInput] = useInput(0);
   const [description, onChangeDescription] = useInput("");
 
-  const { balance, postDepts } = useContext(UserContext);
+  const { balance, postDepts, doTransaction } = useContext(UserContext);
 
-  const { doTransaction } = useContext(UserContext);
+  const { redirect } = useContext(MainContext);
 
   const handleSubmit = () => {
     switch (type) {
@@ -51,6 +52,7 @@ export default ({ useDisclosure, title, type }) => {
         break;
     }
     useDisclosure.onClose();
+    redirect("/");
   };
 
   return (

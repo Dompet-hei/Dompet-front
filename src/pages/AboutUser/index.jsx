@@ -20,13 +20,25 @@ import { useEffect } from "react";
 import AccountAvatar from "../components/AccountAvatar";
 
 const AboutUser = () => {
-  const { name, id, balance, firstName, clientID, birthDate, getAbout } =
-    useContext(UserContext);
+  const {
+    name,
+    id,
+    balance,
+    firstName,
+    clientID,
+    birthDate,
+    getAbout,
+    refreshValue,
+  } = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     getAbout();
   }, [name, id]);
+
+  useEffect(() => {
+    refreshValue();
+  }, []);
 
   return (
     <Flex justifyContent="center" alignItems="center" h="100%" w="100%">
