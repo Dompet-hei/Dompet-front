@@ -8,6 +8,8 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  AreaChart,
+  Area,
 } from "recharts";
 
 /*const data2 = [
@@ -36,14 +38,14 @@ export default ({ h, fullW, content }) => {
       overflowX="auto"
     >
       <Text fontSize="2em">History</Text>
-      <LineChart
+      <AreaChart
         width={500}
         height={400}
         data={
           Array.isArray(content) ? (
             content.map((e, i) => {
               return {
-                accountId: e.recordDate,
+                date: e.recordDate.split("T")[0],
                 amount: e.amount,
               };
             })
@@ -53,13 +55,19 @@ export default ({ h, fullW, content }) => {
         }
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >
-        <XAxis dataKey="accountId" />
+        <defs>
+          <linearGradient id="colorGr" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopOpacity=".8"></stop>
+            <stop offset="95%" stopOpacity="0"></stop>
+          </linearGradient>
+        </defs>
+        <XAxis dataKey="date" angle={50} />
         <YAxis />
         <CartesianGrid strokeDasharray="3 3" />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="amount" />
-      </LineChart>
+        <Area type="monotone" dataKey="amount" fill="url(#colorGr)" />
+      </AreaChart>
     </Flex>
   );
 };

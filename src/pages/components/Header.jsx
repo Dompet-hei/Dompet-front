@@ -53,7 +53,7 @@ const Header = ({ h }) => {
             rightIcon={<FaAngleDown />}
             colorScheme="blue"
           >
-            Setting
+            Actions
           </MenuButton>
           <MenuList>
             <MenuItem onClick={depositsUseDisclosure.onOpen}>Deposits</MenuItem>
