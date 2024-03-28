@@ -27,8 +27,8 @@ export default ({ h, fullW, content }) => {
 
   return (
     <Flex
-      w="90%"
-      h="90%"
+      w="600px"
+      h="500px"
       flexDir="column"
       justifyContent="space-evenly"
       alignItems="center"
@@ -37,7 +37,7 @@ export default ({ h, fullW, content }) => {
     >
       <Text fontSize="2em">History</Text>
       <LineChart
-        width={fullW ? 800 : 500}
+        width={500}
         height={400}
         data={
           Array.isArray(content) ? (
