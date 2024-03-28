@@ -17,6 +17,7 @@ import useList from "../../hooks/useList";
 import { useContext } from "react";
 import { FetchContext } from "../../FetchProvider";
 import { UserContext } from "../../UserProvider";
+import Graph from "./components/graph";
 
 export default () => {
   const [transactions, setTransactions, ,] = useList();
@@ -67,6 +68,7 @@ export default () => {
           </Tbody>
         </Table>
       </TableContainer>
+      <Graph content={transactions} />
       <OverDraftModal useDisclosure={useDisclosureDebts} />
     </Flex>
   );
