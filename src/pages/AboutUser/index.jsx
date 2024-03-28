@@ -11,6 +11,8 @@ import {
   StatHelpText,
   CardFooter,
   Tooltip,
+  Input,
+  Text,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { UserContext } from "../../UserProvider";
@@ -20,6 +22,7 @@ import ModificationProfileModal from "../../modal/ModificationProfileModal";
 import { useEffect } from "react";
 import AccountAvatar from "../components/AccountAvatar";
 import { opacityTheme, theme } from "../../utils/color";
+import useInput from "../../hooks/useInput";
 
 const StatHover = ({ children, label }) => {
   return (
@@ -51,6 +54,7 @@ const AboutUser = () => {
     refreshValue,
   } = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [searchBalance, onChangeSearchBalance] = useInput("");
 
   useEffect(() => {
     getAbout();
@@ -61,7 +65,7 @@ const AboutUser = () => {
   }, []);
 
   return (
-    <Flex justifyContent="center" alignItems="center" h="100%" w="100%">
+    <Flex justifyContent="center" wrap="wrap" h="100%" w="100%" gap="2em">
       <Card
         maxW="95%"
         h="auto"
@@ -101,6 +105,21 @@ const AboutUser = () => {
             </StatHover>
           </Flex>
         </CardFooter>
+      </Card>
+      <Card
+        maxW="95%"
+        w="60vw"
+        h="10em"
+        bgColor={opacityTheme.light(0.5)}
+        boxShadow="md"
+      >
+        <Flex direction="row" justifyContent="center" gap="2em">
+          <Heading fontSize="1.5em">Your money</Heading>
+          <Input w="70%" type="date" onChange={onChangeSearchBalance} />
+        </Flex>
+        <Text fontSize="5em" pl="1em">
+          {searchBalance}
+        </Text>
       </Card>
     </Flex>
   );
