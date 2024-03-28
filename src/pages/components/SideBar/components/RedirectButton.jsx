@@ -1,5 +1,5 @@
 import { Button, Text } from "@chakra-ui/react";
-import { theme } from "../../../../utils/color";
+import { opacityTheme, theme } from "../../../../utils/color";
 import { MainContext } from "../../../../MainProvider";
 import { useContext } from "react";
 
@@ -23,8 +23,12 @@ const RedirectButton = ({ link, text }) => {
       onClick={handleRedirect}
       w="100%"
       h="4em"
-      bgColor={theme.base}
+      bgColor="#00000000"
       borderRadius={0}
+      color={theme.dark}
+      _hover={{
+        bgColor: opacityTheme.light(0.7),
+      }}
     >
       <Text>{text || getPathFromLink() || "Some Text"}</Text>
     </Button>

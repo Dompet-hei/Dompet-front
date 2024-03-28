@@ -14,6 +14,7 @@ const HeaderFooter = ({ children }) => {
       position="relative"
       direction="column"
       overflow="hidden"
+      color={theme.dark}
     >
       <Header h={HNavBar} />
       <Flex w="100%" h={`calc(100vh - ${HNavBar})`} direction="row">
