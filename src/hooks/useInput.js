@@ -11,7 +11,7 @@ const useInput = (init) => {
     setValueState(init);
   };
 
-  return [valueState, onChange, clear];
+  return [valueState, onChange, clear, setValueState];
 };
 
 export default useInput;

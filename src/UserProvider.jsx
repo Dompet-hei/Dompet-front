@@ -36,11 +36,12 @@ const UserProvider = ({ children, needRedirect }) => {
   );
   const [isActive, setIsActive] = useLocalStorage("active", false);
   const [clientID, setClientId] = useLocalStorage("client-id", null);
+  const [availableAccounts, setAvailableAccounts] = useList([]);
 
   const [nameInput, onChangeName] = useInput(name);
   const [firstNameInput, onChangeFirstName] = useInput(firstName);
   const [salaryInput, onChangeSalary] = useInput(salary);
-  const [idInput, onChangeId] = useInput(id);
+  const [idInput, onChangeId, , setIdInput] = useInput(id);
   const [creationDateInput, onChangeCreationDate] = useInput(creationDate);
   const [birthDateInput, onChangeBirthDate] = useInput(birthDate);
   const isActiveInput = useBoolean(isActive);
@@ -97,8 +98,12 @@ const UserProvider = ({ children, needRedirect }) => {
     );
   };
 
-  const loginAccount = () => {
-    verb.get(`/account/${idInput}`, {
+  const allAccountUserOf = (client) => {
+    verb.get(`/client/${client}/accounts`, setAvailableAccounts);
+  };
+
+  const loginAccount = (name) => {
+    verb.get(`/account/${name ? name : idInput}`, {
       accountId: setId,
       creationDate: setCreationDate,
       monthlyNetSalary: setSalary,
@@ -186,6 +191,7 @@ const UserProvider = ({ children, needRedirect }) => {
         birthDate,
         isActive,
         clientID,
+        availableAccounts,
         setName,
         setId,
         setBalance,
@@ -195,12 +201,14 @@ const UserProvider = ({ children, needRedirect }) => {
         setBirthDate,
         setIsActive,
         setClientId,
+        setAvailableAccounts,
         addOverdraft,
         setOverdraft,
         nameInput,
         onChangeName,
         idInput,
         onChangeId,
+        setIdInput,
         firstNameInput,
         onChangeFirstName,
         salaryInput,
@@ -221,6 +229,7 @@ const UserProvider = ({ children, needRedirect }) => {
         getBalance,
         doTransaction,
         refreshValue,
+        allAccountUserOf,
       }}
     >
       {validatePage() ? children : <></>}

@@ -10,6 +10,7 @@ import {
   VStack,
   Image,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { BsGithub, BsLinkedin, BsPerson, BsTwitter } from "react-icons/bs";
@@ -21,6 +22,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import LoginForm from "./components/LoginForm";
 import { Link } from "react-router-dom";
+import ChoseAccountModal from "../../modal/ChoseAccountModal";
 
 const confetti = {
   light: {
@@ -39,14 +41,16 @@ const CONFETTI_DARK = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
 
 export default function ChoseUser() {
   const { redirect } = useContext(MainContext);
-  const { id, isEmptyUser } = useContext(UserContext);
+  const { id, isEmptyUser, clientId } = useContext(UserContext);
   const { hasCopied, onCopy } = useClipboard("example@example.com");
+
+  const choseAccountDisclosure = useDisclosure();
 
   useEffect(() => {
     if (!isEmptyUser()) {
       redirect("/");
     }
-  }, [id]);
+  }, [clientId, id]);
 
   return (
     <Flex
@@ -156,7 +160,7 @@ export default function ChoseUser() {
                 color={useColorModeValue("gray.700", "whiteAlpha.900")}
                 shadow="base"
               >
-                <LoginForm />
+                <LoginForm onOpen={choseAccountDisclosure.onOpen} />
               </Box>
             </Stack>
             <Text>
@@ -165,6 +169,7 @@ export default function ChoseUser() {
           </VStack>
         </Box>
       </Box>
+      <ChoseAccountModal useDisclosure={choseAccountDisclosure} />
     </Flex>
   );
 }
