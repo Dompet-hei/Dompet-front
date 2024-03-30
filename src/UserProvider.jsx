@@ -7,6 +7,7 @@ import useInput from "./hooks/useInput";
 import useList from "./hooks/useList";
 import { FetchContext } from "./FetchProvider";
 import { useBoolean } from "usehooks-ts";
+import { useDisclosure } from "@chakra-ui/react";
 
 export const UserContext = createContext();
 
@@ -37,6 +38,8 @@ const UserProvider = ({ children, needRedirect }) => {
   const [isActive, setIsActive] = useLocalStorage("active", false);
   const [clientID, setClientId] = useLocalStorage("client-id", null);
   const [availableAccounts, setAvailableAccounts] = useList([]);
+  const [interest, setInterest] = useLocalStorage("interest", 0);
+  const [interest2, setInterest2] = useLocalStorage("interest2", 0);
 
   const [nameInput, onChangeName] = useInput(name);
   const [firstNameInput, onChangeFirstName] = useInput(firstName);
@@ -46,6 +49,8 @@ const UserProvider = ({ children, needRedirect }) => {
   const [birthDateInput, onChangeBirthDate] = useInput(birthDate);
   const isActiveInput = useBoolean(isActive);
   const [clientIdInput, onChangeClientId] = useInput(clientID);
+
+  const interestDiscolure = useDisclosure();
 
   const { verb } = useContext(FetchContext);
 
@@ -192,6 +197,8 @@ const UserProvider = ({ children, needRedirect }) => {
         isActive,
         clientID,
         availableAccounts,
+        interest,
+        interest2,
         setName,
         setId,
         setBalance,
@@ -201,6 +208,8 @@ const UserProvider = ({ children, needRedirect }) => {
         setBirthDate,
         setIsActive,
         setClientId,
+        setInterest,
+        setInterest2,
         setAvailableAccounts,
         addOverdraft,
         setOverdraft,
@@ -230,6 +239,7 @@ const UserProvider = ({ children, needRedirect }) => {
         doTransaction,
         refreshValue,
         allAccountUserOf,
+        interestDiscolure,
       }}
     >
       {validatePage() ? children : <></>}
