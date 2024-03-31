@@ -180,7 +180,8 @@ const UserProvider = ({ children, needRedirect }) => {
     });
   };
 
-  const logoutAccount = () =>
+  const logoutAccount = () => {
+    setIdInput(DEFAULT_USER);
     setAllArgs(
       DEFAULT_USER,
       DEFAULT_USER_NAME,
@@ -191,6 +192,7 @@ const UserProvider = ({ children, needRedirect }) => {
       false,
       null,
     );
+  };
 
   useEffect(() => {
     if (!validatePage() && !isInPath("/chose")) {
