@@ -28,7 +28,7 @@ const Header = ({ h }) => {
 
   const handleLogOut = () => {
     logoutAccount();
-    redirect("/chose");
+    setTimeout(() => redirect("/chose"), 1000);
   };
 
   useEffect(() => {}, [id]);
