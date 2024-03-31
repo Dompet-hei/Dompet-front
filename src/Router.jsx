@@ -9,6 +9,7 @@ import DebtsPage from "./pages/DebtsPage";
 import MainProvider from "./MainProvider";
 import SignUp from "./pages/SignUp";
 import TransactionsPage from "./pages/TransactionsPage";
+import SendMoney from "./pages/SendMoney";
 
 const Router = () => {
   return (
@@ -47,6 +48,14 @@ const Router = () => {
               />
             }
             path="/transactions"
+          />
+          <Route
+            element={
+              <UserContext
+                children={<HeaderFooter children={<SendMoney />} />}
+              />
+            }
+            path="/send"
           />
           <Route element={<Error />} path="*" />
         </Routes>

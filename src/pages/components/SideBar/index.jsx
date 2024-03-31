@@ -16,6 +16,7 @@ const SideBar = ({ h }) => {
       <Divider w="80%" />
       <RedirectButton link="/debts" />
       <RedirectButton link="/transactions" />
+      <RedirectButton link="/send" />
     </Flex>
   );
 };

@@ -161,6 +161,25 @@ const UserProvider = ({ children, needRedirect }) => {
     getBalance();
   };
 
+  const createTransfer = () => {
+    const transfer = `${id}-${Date.now()}`;
+    verb.post(`/account/${id}/transfer`, {
+      transferId: transfer,
+      uniqueReference: `${id}-${Date.now()}`,
+      senderAccountId: id,
+    });
+    return transfer;
+  };
+
+  const createTransferReceive = (idTransfer, toSend) => {
+    verb.post(`/account/${id}/transferReceive`, {
+      transferId: `${id}-${Date.now()}`,
+      uniqueReference: `${id}-${Date.now()}`,
+      receiveAccountId: id,
+      amount: amount,
+    });
+  };
+
   const logoutAccount = () =>
     setAllArgs(
       DEFAULT_USER,
@@ -239,6 +258,8 @@ const UserProvider = ({ children, needRedirect }) => {
         doTransaction,
         refreshValue,
         allAccountUserOf,
+        createTransfer,
+        createTransferReceive,
         interestDiscolure,
       }}
     >
