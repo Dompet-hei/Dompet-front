@@ -41,13 +41,14 @@ const CONFETTI_DARK = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
 
 export default function ChoseUser() {
   const { redirect } = useContext(MainContext);
-  const { id, isEmptyUser, clientId } = useContext(UserContext);
+  const { id, isEmptyUser, clientId, getAbout } = useContext(UserContext);
   const { hasCopied, onCopy } = useClipboard("example@example.com");
 
   const choseAccountDisclosure = useDisclosure();
 
   useEffect(() => {
     if (!isEmptyUser()) {
+      getAbout();
       redirect("/");
     }
   }, [clientId, id]);

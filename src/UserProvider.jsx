@@ -40,6 +40,7 @@ const UserProvider = ({ children, needRedirect }) => {
   const [availableAccounts, setAvailableAccounts] = useList([]);
   const [interest, setInterest] = useLocalStorage("interest", 0);
   const [interest2, setInterest2] = useLocalStorage("interest2", 0);
+  const [bank, setBank] = useLocalStorage("bank", "");
 
   const [nameInput, onChangeName] = useInput(name);
   const [firstNameInput, onChangeFirstName] = useInput(firstName);
@@ -118,10 +119,11 @@ const UserProvider = ({ children, needRedirect }) => {
   };
 
   const getAbout = () => {
-    verb.get(`/client/${clientID}`, {
+    verb.get(`/account/${id}/about`, {
       lastName: setName,
       firstName: setFirstName,
       birthDate: setBirthDate,
+      bankName: setBank,
     });
   };
 
@@ -220,6 +222,7 @@ const UserProvider = ({ children, needRedirect }) => {
         availableAccounts,
         interest,
         interest2,
+        bank,
         setName,
         setId,
         setBalance,
@@ -231,6 +234,7 @@ const UserProvider = ({ children, needRedirect }) => {
         setClientId,
         setInterest,
         setInterest2,
+        setBank,
         setAvailableAccounts,
         addOverdraft,
         setOverdraft,

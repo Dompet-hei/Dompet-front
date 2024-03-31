@@ -52,6 +52,8 @@ const AboutUser = () => {
     birthDate,
     getAbout,
     refreshValue,
+    salary,
+    bank,
   } = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchBalance, onChangeSearchBalance] = useInput("");
@@ -96,12 +98,18 @@ const AboutUser = () => {
           </Stack>
         </CardBody>
         <CardFooter>
-          <Flex w="20em" gap="1em">
+          <Flex w="40em" gap="1em">
             <StatHover label="Current Account">
               <StatHelpText>{id}</StatHelpText>
             </StatHover>
             <StatHover label="Current Balance">
               <StatNumber>{balance} Ar</StatNumber>
+            </StatHover>
+            <StatHover label="Your net salary">
+              <StatNumber>{salary}</StatNumber>
+            </StatHover>
+            <StatHover label="Your bank">
+              <StatNumber>{bank}</StatNumber>
             </StatHover>
           </Flex>
         </CardFooter>
