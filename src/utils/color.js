@@ -16,11 +16,13 @@ const createApplyOpacityFunction = (color) => {
   return (o) => applyOpacity(color, o);
 };
 
+// #3B60E4
+
 const THEME = {
-  light: "#B8EBD0",
+  light: "#DCD6F7",
   dark: "#292F36",
   alert: "#FF6B6B",
-  base: "#B0C7BD",
+  base: "#59B1C5",
 };
 
 export const theme = lightTheme

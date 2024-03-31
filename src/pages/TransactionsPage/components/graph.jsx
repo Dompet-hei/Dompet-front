@@ -11,6 +11,7 @@ import {
   AreaChart,
   Area,
 } from "recharts";
+import { theme } from "../../../utils/color";
 
 /*const data2 = [
   { name: 'Jan', solde: 2015, crypto: 10 },
@@ -57,8 +58,8 @@ export default ({ h, fullW, content }) => {
       >
         <defs>
           <linearGradient id="colorGr" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopOpacity=".8"></stop>
-            <stop offset="95%" stopOpacity="0"></stop>
+            <stop offset="5%" stopOpacity="0.8" stopColor={theme.base}></stop>
+            <stop offset="95%" stopOpacity="0.01" stopColor={theme.dark}></stop>
           </linearGradient>
         </defs>
         <XAxis dataKey="date" angle={50} />

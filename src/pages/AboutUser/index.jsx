@@ -108,7 +108,7 @@ const AboutUser = () => {
       </Card>
       <Card
         maxW="95%"
-        w="60vw"
+        w="70vw"
         h="10em"
         bgColor={opacityTheme.light(0.5)}
         boxShadow="md"
