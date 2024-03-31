@@ -15,10 +15,10 @@ const Row = ({ content, fontSize, head }) => {
       ) : (
         <>
           <Th isNumeric fontSize={fontSize}>
-            {content.overdraftInterestDay1to7}
+            {Math.floor(content.overdraftInterestDay1to7 * 100)} %
           </Th>
           <Th isNumeric fontSize={fontSize}>
-            {content.overdraftInterestAfter7}
+            {Math.floor(content.overdraftInterestAfter7 * 100)} %
           </Th>
         </>
       )}
