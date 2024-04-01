@@ -21,7 +21,6 @@ import Graph from "./components/graph";
 
 export default () => {
   const [transactions, setTransactions, ,] = useList();
-  const useDisclosureDebts = useDisclosure();
 
   const { id } = useContext(UserContext);
   const { verb } = useContext(FetchContext);
@@ -53,23 +52,10 @@ export default () => {
             ) : (
               <></>
             )}
-            <Row
-              content={{
-                transactionId: (
-                  <Button
-                    colorScheme="blue"
-                    onClick={useDisclosureDebts.onOpen}
-                  >
-                    Add
-                  </Button>
-                ),
-              }}
-            />
           </Tbody>
         </Table>
       </TableContainer>
       <Graph content={transactions} />
-      <OverDraftModal useDisclosure={useDisclosureDebts} />
     </Flex>
   );
 };

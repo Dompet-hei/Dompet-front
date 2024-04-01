@@ -88,7 +88,11 @@ export default ({ useDisclosure, title, type }) => {
                 <Select onChange={onChangeCategory}>
                   {listCategory.map((chose) => {
                     return (
-                      <option value={chose.categoryId} children={chose.name} />
+                      <option
+                        value={chose.categoryId}
+                        children={chose.name}
+                        key={`${typeTrasaction}-${chose.categoryId}`}
+                      />
                     );
                   })}
                 </Select>
