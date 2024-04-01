@@ -10,6 +10,7 @@ import MainProvider from "./MainProvider";
 import SignUp from "./pages/SignUp";
 import TransactionsPage from "./pages/TransactionsPage";
 import SendMoney from "./pages/SendMoney";
+import BalancePage from "./pages/BalancePage";
 
 const Router = () => {
   return (
@@ -48,6 +49,14 @@ const Router = () => {
               />
             }
             path="/transactions"
+          />
+          <Route
+            element={
+              <UserContext
+                children={<HeaderFooter children={<BalancePage />} />}
+              />
+            }
+            path="/balance"
           />
           <Route
             element={

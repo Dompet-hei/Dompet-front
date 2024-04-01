@@ -13,6 +13,7 @@ const SideBar = ({ h }) => {
       alignItems="center"
     >
       <RedirectButton link="/" />
+      <RedirectButton link="/balance" />
       <Divider w="80%" />
       <RedirectButton link="/debts" />
       <RedirectButton link="/transactions" />
