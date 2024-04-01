@@ -18,22 +18,28 @@ import { useContext } from "react";
 import { FetchContext } from "../../FetchProvider";
 import { UserContext } from "../../UserProvider";
 import Graph from "./components/graph";
+import PieGraph from "./components/pieGraph";
+import useInput from "../../hooks/useInput";
 
 export default () => {
+  const [transactions, setTransactions, ,] = useList();
+  const [startDate, onChangeStartDate, clearStartDate] = useInput(null);
+  const [endDate, onChangeEndDate, clearEndDate] = useInput(null);
   const [balances, setBalances, ,] = useList();
 
   const { id } = useContext(UserContext);
   const { verb } = useContext(FetchContext);
 
   useEffect(() => {
+    verb.get(`/account/${id}/transactions`, setTransactions);
     verb.get(`/account/${id}/balance`, setBalances);
   }, []);
 
-  useEffect(() => {}, [balances]);
+  useEffect(() => {}, [balances, transactions]);
 
   return (
-    <Flex>
-      <TableContainer w="50%">
+    <Flex wrap="wrap">
+      <TableContainer w="40%">
         <Table w="100%" variant="striped" colorScheme="teal">
           <Thead>
             <Row
@@ -56,6 +62,7 @@ export default () => {
         </Table>
       </TableContainer>
       <Graph content={balances} />
+      <PieGraph content={transactions} />
     </Flex>
   );
 };
