@@ -8,6 +8,8 @@ import {
   Tr,
   Th,
   Button,
+  StatNumber,
+  StatHelpText,
 } from "@chakra-ui/react";
 import Row from "./components/Row";
 import { useDisclosure } from "@chakra-ui/react";
@@ -62,14 +64,21 @@ const DebtsPage = () => {
       </TableContainer>
       <Flex
         h="25vh"
-        w="25vh"
-        justifyContent="center"
+        w="100%"
+        pr="1em"
+        justifyContent="end"
         alignItems="center"
         bgColor={opacityTheme.base(0.5)}
-        borderRadius="1em"
-        m="2em"
-        gap=".5em"
+        gap="1em"
       >
+        <Flex justifyContent="center" alignItems="center" mx="3em">
+          <Stat>
+            <StatHelpText>Total Amount</StatHelpText>
+            <StatNumber>
+              {toSend.reduce((a, b) => a + Number(b.amount), 0)} Ar
+            </StatNumber>
+          </Stat>
+        </Flex>
         <Button colorScheme="red" type="reset">
           Abord
         </Button>
