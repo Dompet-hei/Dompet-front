@@ -13,6 +13,7 @@ import {
   Button,
   StatHelpText,
   Textarea,
+  Select,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { UserContext } from "../UserProvider";
@@ -28,18 +29,20 @@ const typeTrasaction = {
 export default ({ useDisclosure, title, type }) => {
   const [input, onChangeInput, clearInput] = useInput(0);
   const [description, onChangeDescription] = useInput("");
+  const [category, onChangeCategory] = useInput("");
 
-  const { balance, postDepts, doTransaction } = useContext(UserContext);
+  const { balance, postDepts, doTransaction, listCategory } =
+    useContext(UserContext);
 
   const { redirect } = useContext(MainContext);
 
   const handleSubmit = () => {
     switch (type) {
       case typeTrasaction.deposits:
-        doTransaction(input, description);
+        doTransaction(input, description, category);
         break;
       case typeTrasaction.withdrawals:
-        doTransaction(-input, description);
+        doTransaction(-input, description, category);
         break;
       case typeTrasaction.overdraft:
         postDepts(input);
@@ -52,7 +55,6 @@ export default ({ useDisclosure, title, type }) => {
         break;
     }
     useDisclosure.onClose();
-    redirect("/");
   };
 
   return (
@@ -79,6 +81,17 @@ export default ({ useDisclosure, title, type }) => {
                     max={balance}
                   />
                 </StatHelpText>
+              ) : (
+                <></>
+              )}
+              {type != typeTrasaction.overdraft ? (
+                <Select onChange={onChangeCategory}>
+                  {listCategory.map((chose) => {
+                    return (
+                      <option value={chose.categoryId} children={chose.name} />
+                    );
+                  })}
+                </Select>
               ) : (
                 <></>
               )}

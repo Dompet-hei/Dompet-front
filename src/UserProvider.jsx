@@ -41,6 +41,7 @@ const UserProvider = ({ children, needRedirect }) => {
   const [interest, setInterest] = useLocalStorage("interest", 0);
   const [interest2, setInterest2] = useLocalStorage("interest2", 0);
   const [bank, setBank] = useLocalStorage("bank", "");
+  const [listCategory, setListCategory] = useList([]);
 
   const [nameInput, onChangeName] = useInput(name);
   const [firstNameInput, onChangeFirstName] = useInput(firstName);
@@ -134,7 +135,7 @@ const UserProvider = ({ children, needRedirect }) => {
   };
 
   const postDepts = (value) => {
-    verb.post(`/account/${id}/overdraft`, {
+    verb.put(`/account/${id}/overdraft`, {
       overdraftId: `${id}-${Date.now()}`,
       accountId: id,
       overdraftAllowed: true,
@@ -146,11 +147,11 @@ const UserProvider = ({ children, needRedirect }) => {
     });
   };
 
-  const doTransaction = (value, description) => {
-    verb.post(`/account/${id}/transactions`, {
+  const doTransaction = (value, description, idCategory) => {
+    verb.put(`/account/${id}/transactions`, {
       transactionId: `${id}-${Date.now()}`,
       accountId: id,
-      categoryId: "category1",
+      categoryId: idCategory,
       effectiveDate: new Date(),
       recordDate: new Date(),
       amount: value,
@@ -161,11 +162,12 @@ const UserProvider = ({ children, needRedirect }) => {
   const refreshValue = () => {
     verb.get(`/account/${id}/overdraft`, setOverdraft);
     getBalance();
+    getAllCategory();
   };
 
   const createTransfer = () => {
     const transfer = `${id}-${Date.now()}`;
-    verb.post(`/account/${id}/transfer`, {
+    verb.put(`/account/${id}/transfer`, {
       transferId: transfer,
       uniqueReference: `${id}-${Date.now()}`,
       senderAccountId: id,
@@ -174,12 +176,16 @@ const UserProvider = ({ children, needRedirect }) => {
   };
 
   const createTransferReceive = (idTransfer, toSend) => {
-    verb.post(`/account/${id}/transferReceive`, {
+    verb.put(`/account/${id}/transferReceive`, {
       transferId: `${id}-${Date.now()}`,
       uniqueReference: `${id}-${Date.now()}`,
       receiveAccountId: id,
       amount: amount,
     });
+  };
+
+  const getAllCategory = () => {
+    verb.get("/categories", setListCategory);
   };
 
   const logoutAccount = () => {
@@ -223,6 +229,7 @@ const UserProvider = ({ children, needRedirect }) => {
         interest,
         interest2,
         bank,
+        listCategory,
         setName,
         setId,
         setBalance,
@@ -235,6 +242,7 @@ const UserProvider = ({ children, needRedirect }) => {
         setInterest,
         setInterest2,
         setBank,
+        setListCategory,
         setAvailableAccounts,
         addOverdraft,
         setOverdraft,
@@ -266,6 +274,7 @@ const UserProvider = ({ children, needRedirect }) => {
         allAccountUserOf,
         createTransfer,
         createTransferReceive,
+        getAllCategory,
         interestDiscolure,
       }}
     >
