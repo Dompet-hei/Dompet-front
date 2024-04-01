@@ -131,7 +131,7 @@ const UserProvider = ({ children, needRedirect }) => {
   };
 
   const getBalance = () => {
-    verb.get(`/account/${id}/balance`, {
+    verb.get(`/account/${id}/latestBalance`, {
       balance: setBalance,
     });
   };
