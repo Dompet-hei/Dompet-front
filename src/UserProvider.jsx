@@ -167,19 +167,26 @@ const UserProvider = ({ children, needRedirect }) => {
 
   const createTransfer = () => {
     const transfer = `${id}-${Date.now()}`;
-    verb.put(`/account/${id}/transfer`, {
+    verb.put(`/account/${id}/transfers`, {
       transferId: transfer,
-      uniqueReference: `${id}-${Date.now()}`,
+      uniqueReference: transfer.substring(0, 20),
       senderAccountId: id,
+      scheduledEffectiveDate: "2024-04-01",
+      statusId: 1,
+      description: "string",
+      effectiveDate: "2024-04-01T16:06:51.583Z",
+      recordDate: "2024-04-01T16:06:51.583Z",
+      isInternal: true,
     });
     return transfer;
   };
 
-  const createTransferReceive = (idTransfer, toSend) => {
-    verb.put(`/account/${id}/transferReceive`, {
-      transferId: `${id}-${Date.now()}`,
-      uniqueReference: `${id}-${Date.now()}`,
-      receiveAccountId: id,
+  const createTransferReceive = (idTransfer, toSend, amount) => {
+    verb.put(`/transferRecipient`, {
+      id: {
+        transferId: idTransfer,
+        recipientAccountId: toSend,
+      },
       amount: amount,
     });
   };

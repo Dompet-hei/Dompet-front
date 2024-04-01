@@ -19,17 +19,29 @@ import SendMoneyModal from "./components/SendMoneyModal";
 
 import { opacityTheme, theme } from "../../utils/color.js";
 import ConfirmationModal from "./components/ConfirmationModal.jsx";
+import { useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../../UserProvider.jsx";
 
 const DebtsPage = () => {
   const [toSend, , appendToSend] = useList([]);
   const useDisclosureSend = useDisclosure();
   const confirmDisclosure = useDisclosure();
 
+  const [transfer, setTransfer] = useState("");
+
+  const { createTransfer, createTransferReceive } = useContext(UserContext);
+
+  const handleClick = () => {
+    setTransfer(createTransfer());
+    confirmDisclosure.onOpen();
+  };
+
   useEffect(() => {}, [toSend]);
 
   return (
     <Flex direction="column" gap="2em">
-      <TableContainer>
+      <TableContainer h="60vh" overflowY="auto">
         <Table w="100%" variant="striped" colorScheme="teal">
           <Thead>
             <Row
@@ -82,11 +94,7 @@ const DebtsPage = () => {
         <Button colorScheme="red" type="reset">
           Abord
         </Button>
-        <Button
-          colorScheme="blue"
-          type="submit"
-          onClick={confirmDisclosure.onOpen}
-        >
+        <Button colorScheme="blue" type="submit" onClick={handleClick}>
           Send
         </Button>
       </Flex>
@@ -101,6 +109,8 @@ const DebtsPage = () => {
         type="Confirm"
         useDisclosure={confirmDisclosure}
         toSend={toSend}
+        transfer={transfer}
+        setTransfer={setTransfer}
       />
     </Flex>
   );
