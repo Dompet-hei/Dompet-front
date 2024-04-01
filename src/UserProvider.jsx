@@ -42,6 +42,8 @@ const UserProvider = ({ children, needRedirect }) => {
   const [interest2, setInterest2] = useLocalStorage("interest2", 0);
   const [bank, setBank] = useLocalStorage("bank", "");
   const [listCategory, setListCategory] = useList([]);
+  const [listCategoryIncome, setListCategoryIncome] = useList([]);
+  const [listCategoryExpense, setListCategoryExpense] = useList([]);
 
   const [nameInput, onChangeName] = useInput(name);
   const [firstNameInput, onChangeFirstName] = useInput(firstName);
@@ -193,6 +195,8 @@ const UserProvider = ({ children, needRedirect }) => {
 
   const getAllCategory = () => {
     verb.get("/categories", setListCategory);
+    verb.get("/categories/income", setListCategoryIncome);
+    verb.get("/categories/expense", setListCategoryExpense);
   };
 
   const logoutAccount = () => {
@@ -237,6 +241,8 @@ const UserProvider = ({ children, needRedirect }) => {
         interest2,
         bank,
         listCategory,
+        listCategoryIncome,
+        listCategoryExpense,
         setName,
         setId,
         setBalance,
@@ -249,6 +255,8 @@ const UserProvider = ({ children, needRedirect }) => {
         setInterest,
         setInterest2,
         setBank,
+        setListCategoryIncome,
+        setListCategoryExpense,
         setListCategory,
         setAvailableAccounts,
         addOverdraft,

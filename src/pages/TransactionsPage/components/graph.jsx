@@ -12,6 +12,8 @@ import {
   Area,
 } from "recharts";
 import { theme } from "../../../utils/color";
+import { useContext } from "react";
+import { UserContext } from "../../../UserProvider";
 
 /*const data2 = [
   { name: 'Jan', solde: 2015, crypto: 10 },
@@ -24,6 +26,8 @@ import { theme } from "../../../utils/color";
 ]*/
 
 export default ({ h, fullW, content }) => {
+  const { listCategoryExpense } = useContext(UserContext);
+
   useEffect(() => {
     console.log(content);
   });
@@ -44,10 +48,19 @@ export default ({ h, fullW, content }) => {
         height={400}
         data={
           Array.isArray(content) ? (
-            content.map((e, i) => {
+            content.map((e) => {
               return {
                 date: e.recordDate.split("T")[0],
-                amount: e.amount,
+                income: !listCategoryExpense.some(
+                  (l) => l.categoryId == e.categoryId,
+                )
+                  ? e.amount
+                  : 0,
+                expenses: listCategoryExpense.some(
+                  (l) => l.categoryId == e.categoryId,
+                )
+                  ? e.amount
+                  : 0,
               };
             })
           ) : (
@@ -57,8 +70,12 @@ export default ({ h, fullW, content }) => {
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
       >
         <defs>
-          <linearGradient id="colorGr" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="colorGr+" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopOpacity="0.8" stopColor={theme.base}></stop>
+            <stop offset="95%" stopOpacity="0.01" stopColor={theme.dark}></stop>
+          </linearGradient>
+          <linearGradient id="colorGr-" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopOpacity="0.8" stopColor={theme.alert}></stop>
             <stop offset="95%" stopOpacity="0.01" stopColor={theme.dark}></stop>
           </linearGradient>
         </defs>
@@ -67,7 +84,8 @@ export default ({ h, fullW, content }) => {
         <CartesianGrid strokeDasharray="3 3" />
         <Tooltip />
         <Legend />
-        <Area type="monotone" dataKey="amount" fill="url(#colorGr)" />
+        <Area type="monotone" dataKey="income" fill="url(#colorGr+)" />
+        <Area type="monotone" dataKey="expenses" fill="url(#colorGr-)" />
       </AreaChart>
     </Flex>
   );

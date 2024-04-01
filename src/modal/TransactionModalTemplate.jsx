@@ -19,6 +19,7 @@ import { useContext } from "react";
 import { UserContext } from "../UserProvider";
 import useInput from "../hooks/useInput";
 import { MainContext } from "../MainProvider";
+import useList from "../hooks/useList";
 
 const typeTrasaction = {
   deposits: "deposits",
@@ -31,18 +32,22 @@ export default ({ useDisclosure, title, type }) => {
   const [description, onChangeDescription] = useInput("");
   const [category, onChangeCategory] = useInput("");
 
-  const { balance, postDepts, doTransaction, listCategory } =
-    useContext(UserContext);
+  const {
+    balance,
+    postDepts,
+    doTransaction,
+    listCategory,
+    listCategoryIncome,
+    listCategoryExpense,
+  } = useContext(UserContext);
 
   const { redirect } = useContext(MainContext);
 
   const handleSubmit = () => {
     switch (type) {
       case typeTrasaction.deposits:
-        doTransaction(input, description, category);
-        break;
       case typeTrasaction.withdrawals:
-        doTransaction(-input, description, category);
+        doTransaction(input, description, category);
         break;
       case typeTrasaction.overdraft:
         postDepts(input);
@@ -86,7 +91,12 @@ export default ({ useDisclosure, title, type }) => {
               )}
               {type != typeTrasaction.overdraft ? (
                 <Select onChange={onChangeCategory}>
-                  {listCategory.map((chose) => {
+                  {(type == typeTrasaction.deposits
+                    ? listCategoryIncome
+                    : type == typeTrasaction.withdrawals
+                      ? listCategoryExpense
+                      : []
+                  ).map((chose) => {
                     return (
                       <option
                         value={chose.categoryId}
