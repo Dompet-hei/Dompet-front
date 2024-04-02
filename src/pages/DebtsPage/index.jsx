@@ -17,7 +17,7 @@ import { useEffect } from "react";
 import OverDraftModal from "../../modal/OverDraftModal";
 
 const DebtsPage = () => {
-  const { overdraft } = useContext(UserContext);
+  const { overdraft, interest, interest2 } = useContext(UserContext);
   const useDisclosureDebts = useDisclosure();
 
   useEffect(() => {}, [overdraft]);
@@ -39,7 +39,16 @@ const DebtsPage = () => {
           </Thead>
           <Tbody>
             {Array.isArray(overdraft) ? (
-              overdraft.map((e) => <Row key={e.overdraftId} content={e} />)
+              overdraft.map((e) => (
+                <Row
+                  key={e.overdraftId}
+                  content={{
+                    ...e,
+                    overdraftInterestDay1to7: interest,
+                    overdraftInterestAfter7: interest2,
+                  }}
+                />
+              ))
             ) : (
               <></>
             )}

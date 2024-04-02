@@ -18,6 +18,7 @@ import { FaAngleDown } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import WithdrawalsModal from "../../modal/WithdrawalsModal";
 import DepositsModal from "../../modal/DepositsModal";
+import InterestModal from "../../modal/InterestModal";
 
 const Header = ({ h }) => {
   const { logoutAccount, id } = useContext(UserContext);
@@ -25,6 +26,7 @@ const Header = ({ h }) => {
 
   const withDrawalsUseDisclosure = useDisclosure();
   const depositsUseDisclosure = useDisclosure();
+  const interestUseDisclosure = useDisclosure();
 
   const handleLogOut = () => {
     logoutAccount();
@@ -56,6 +58,10 @@ const Header = ({ h }) => {
             Actions
           </MenuButton>
           <MenuList>
+            <MenuItem onClick={interestUseDisclosure.onOpen}>
+              Modify Interest
+            </MenuItem>
+            <MenuDivider />
             <MenuItem onClick={depositsUseDisclosure.onOpen}>Deposits</MenuItem>
             <MenuItem onClick={withDrawalsUseDisclosure.onOpen}>
               With Drawals
@@ -68,6 +74,7 @@ const Header = ({ h }) => {
 
       <WithdrawalsModal useDisclosure={withDrawalsUseDisclosure} />
       <DepositsModal useDisclosure={depositsUseDisclosure} />
+      <InterestModal useDisclosure={interestUseDisclosure} />
     </Flex>
   );
 };

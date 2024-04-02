@@ -95,6 +95,14 @@ const UserProvider = ({ children, needRedirect }) => {
       firstName: firstNameInput,
       birthDate: birthDateInput,
     });
+    verb.put("/account", {
+      accountId: id,
+      monthlyNetSalary: salary,
+      isActive: isActive,
+      clientId: clientID,
+      interestDay1to7: interest,
+      interestAfter7: interest2,
+    });
     setAllArgs(
       idInput,
       nameInput,
@@ -127,6 +135,8 @@ const UserProvider = ({ children, needRedirect }) => {
       firstName: setFirstName,
       birthDate: setBirthDate,
       bankName: setBank,
+      interestDay1to7: setInterest,
+      interestAfter7: setInterest2,
     });
   };
 
@@ -144,8 +154,6 @@ const UserProvider = ({ children, needRedirect }) => {
       overdraftBalance: value,
       overdraftStartDate: new Date(),
       overdraftReimbursementDate: new Date(),
-      overdraftInterestDay1to7: 0,
-      overdraftInterestAfter7: 0,
     });
   };
 
