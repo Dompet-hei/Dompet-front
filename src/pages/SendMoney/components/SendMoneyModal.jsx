@@ -45,7 +45,7 @@ const SendMoneyModal = ({ useDisclosure, title, type, addList }) => {
     } else {
       addList({
         amount: input,
-        idToSend: id,
+        toSend: id,
       });
       useDisclosure.onClose();
     }

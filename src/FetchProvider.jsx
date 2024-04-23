@@ -10,7 +10,7 @@ export default ({ children }) => {
 
   var result;
   const fetchCommand = (url, method, body = null, def = (r) => r) => {
-    fetch(`${BASE_URL}${url}`, {
+    return fetch(`${BASE_URL}${url}`, {
       method,
       body,
       headers: {

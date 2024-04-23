@@ -26,10 +26,12 @@ export default ({ useDisclosure }) => {
   const { interest, interest2, setInterest, setInterest2, modifyAccount } =
     useContext(UserContext);
 
-  const [input1, onChangeInput1] = useInput(0);
-  const [input2, onChangeInput2] = useInput(0);
+  const [input1, onChangeInput1] = useInput(interest);
+  const [input2, onChangeInput2] = useInput(interest2);
 
   const handleSubmit = () => {
+    setInterest(input1);
+    setInterest2(input2);
     modifyAccount();
     useDisclosure.onClose();
   };

@@ -30,10 +30,19 @@ const DebtsPage = () => {
 
   const [transfer, setTransfer] = useState("");
 
-  const { createTransfer, createTransferReceive } = useContext(UserContext);
+  // const { createTransfer, createTransferReceive } = useContext(UserContext);
+  const { handleTransfer } = useContext(UserContext);
 
-  const handleClick = () => {
-    setTransfer(createTransfer());
+  const handleClick = async () => {
+    await handleTransfer(toSend);
+    //   console.log(createTransfer())
+    // setTransfer(createTransfer()).th;
+    // setTimeout(()=>{
+    // for (const send of toSend){
+    //     console.log(transfer)
+    //   createTransferReceive(transfer, send.idToSend, send.amount);
+    // }
+    // }, 2000)
     confirmDisclosure.onOpen();
   };
 
@@ -46,7 +55,7 @@ const DebtsPage = () => {
           <Thead>
             <Row
               content={{
-                idToSend: "Destination",
+                toSend: "Destination",
                 amount: "Amount",
                 description: "Description",
               }}
@@ -57,14 +66,14 @@ const DebtsPage = () => {
           <Tbody>
             {Array.isArray(toSend) ? (
               toSend.map((e) => (
-                <Row key={e.idToSend + Math.random()} content={e} />
+                <Row key={e.toSend + Math.random()} content={e} />
               ))
             ) : (
               <></>
             )}
             <Row
               content={{
-                idToSend: (
+                toSend: (
                   <Button colorScheme="blue" onClick={useDisclosureSend.onOpen}>
                     Add
                   </Button>
